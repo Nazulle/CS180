@@ -17,7 +17,7 @@ public class Authentication {
      * Create a new Profile with username & password. If the profile exist in the list, return null.
      * @return new Profile or null
      */
-    public Profile createProfile(String username, String password) {
+    public Profile createProfile(String username, String password) throws OccupiedProfileException {
         Profile prof = new Profile(username, password);
         boolean isProfileExists = false;
         for (Profile p : profiles) {
@@ -27,7 +27,7 @@ public class Authentication {
             }
         }
         if (isProfileExists)
-            return null;
+            throw new OccupiedProfileException();
         else {
             profiles.add(prof);
             return prof;
@@ -65,4 +65,3 @@ public class Authentication {
         return profiles.toString();
     }
 }
-
