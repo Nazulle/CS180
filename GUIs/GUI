@@ -1,1 +1,67 @@
+import javax.swing.*; 
+import java.awt.*; 
+import java.awt.event.*; 
 
+public class LoginGUI extends JComponent implements Runnable {
+    JButton loginButton;
+
+    JTextField passText;
+    JTextField userText;
+
+    GUI g;
+
+    String user = "";
+    String pass = "";
+    boolean buttonCheck = false;
+
+    ActionListener actionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == loginButton) {
+
+                if (passText.getText().isEmpty()) {
+                    passText.setText(" ");
+                }
+                if (userText.getText().isEmpty()) {
+                    userText.setText(" ");
+                }
+                user = userText.getText();
+                pass = passText.getText();
+                buttonCheck = true;
+
+            }  
+        }
+    };
+    public void run() {
+        JFrame frame = new JFrame("Login Menu");
+        Container content = frame.getContentPane();
+        content.setLayout(new BorderLayout());
+        //content.add(BorderLayout.CENTER);
+
+        loginButton = new JButton("Login");
+        loginButton.addActionListener(actionListener);
+
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+
+        JPanel topPanel = new JPanel();
+        topPanel.add(loginButton);
+        content.add(topPanel, BorderLayout.NORTH);
+
+        passText = new JTextField(5);
+        passText.setText(" ");
+
+        userText = new JTextField(5);
+        userText.setText(" ");
+
+        JPanel botPanel = new JPanel();
+        botPanel.add(userText);
+        botPanel.add(passText);
+        content.add(botPanel, BorderLayout.SOUTH);
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new GUI());
+    }
+}
