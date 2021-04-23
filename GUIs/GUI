@@ -8,7 +8,7 @@ public class LoginGUI extends JComponent implements Runnable {
     JTextField passText;
     JTextField userText;
 
-    GUI g;
+    LoginGUI g;
 
     String user = "";
     String pass = "";
