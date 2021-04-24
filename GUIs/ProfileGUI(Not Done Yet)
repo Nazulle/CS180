@@ -1,0 +1,68 @@
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+public class ProfileGUI extends JFrame implements Runnable{
+	
+    public static void main(String args []) {
+    	SwingUtilities.invokeLater(new ProfileGUI());
+    	
+    }
+    
+    public ProfileGUI() {
+//Put events here
+     
+    }
+	
+	public void run() {
+		JFrame frame = new JFrame();
+		frame.setTitle("Profile");
+		//strTextField = new JTextField(10);
+		//enterButton = new JButton("Enter");
+		GridLayout gridLayout = new GridLayout(0,2);
+		JPanel overallPanel = new JPanel();
+		overallPanel.setLayout(gridLayout);
+		JPanel panel = new JPanel();
+		JPanel panel2 = new JPanel();
+		overallPanel.add(panel);
+		overallPanel.add(panel2);
+		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_192.gif");
+		JLabel picture = new JLabel(icon);
+		//JList list = new JList(); 
+		//list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		//list.setVisibleRowCount(-1);
+		JLabel name = new JLabel("Chad Brad");
+		JLabel email = new JLabel("ChadBrad2020@purdue.edu\n");
+		JLabel phoneNum = new JLabel("305-555-5555\n");
+		JLabel likesDislikes = new JLabel("-Surfing\n-Snapbacks\n-Being a Broski");
+		JLabel aboutMe = new JLabel("Living at Purdue and being one of the dudes");
+		panel.add(picture);
+		//panel.add(strTextField);
+		panel2.add(name);
+		panel2.add(email);
+		panel2.add(phoneNum);
+		panel2.add(likesDislikes);
+		panel2.add(aboutMe);
+		frame.add(overallPanel, BorderLayout.CENTER);
+		panel.setVisible(true);
+		
+		//paint = new SimplePaint();
+		//content.add(paint, BorderLayout.CENTER);
+		frame.setSize(600, 400);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
+	}
+	
+}
