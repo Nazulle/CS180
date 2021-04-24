@@ -1,14 +1,20 @@
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 
 public class ProfileGUI extends JFrame implements Runnable{
+	static JButton Ron = new JButton("Ron");
+	static JButton Jerry = new JButton("Jerry");
+	static JButton Leslie = new JButton("Leslie");
+	static JButton Ann_Perkins = new JButton("Ann Perkins");
+	static ArrayList<Object []> friendButton = new ArrayList<>();
 	
     public static void main(String args []) {
+    	
     	SwingUtilities.invokeLater(new ProfileGUI());
     	
     }
@@ -19,6 +25,12 @@ public class ProfileGUI extends JFrame implements Runnable{
     }
 	
 	public void run() {
+		/**
+    	friendButton.add(Ron);
+    	friendButton.add(Jerry);
+    	friendButton.add(Leslie);
+    	friendButton.add(Ann_Perkins);
+    	*/
 		JFrame frame = new JFrame();
 		frame.setTitle("Profile");
 		JPanel overallPanel = new JPanel();
@@ -26,11 +38,16 @@ public class ProfileGUI extends JFrame implements Runnable{
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
+		JPanel panelBottom = new JPanel();
+		JPanel panelTop = new JPanel();
+		JPanel scroll = new JPanel();
+		scroll.setSize(100, 100);
 		panel2.setLayout(new FlowLayout(FlowLayout.LEADING));
 		panel3.setLayout(new GridLayout(0,2));
 		overallPanel.add(panel);
 		overallPanel.add(panel2, BorderLayout.CENTER);
 		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_192.gif");
+		JButton goBack = new JButton("Go Back");
 		JLabel picture = new JLabel(icon);
 		JLabel name = new JLabel("<html><p>Chad Brad</p><p></p></html>");
 		JLabel email = new JLabel("<html><p>ChadBrad2020@purdue.edu</p><p></p></html>");
@@ -41,14 +58,25 @@ public class ProfileGUI extends JFrame implements Runnable{
 		//JTextArea contactInfo = new JTextArea("Contact Info:\n" + phoneNum.getText() + "\n" + email.getText());
 		JLabel aboutMe = new JLabel("<html><p>Hi, My name is Chad!</p></html>");
 		panel.add(picture);
-		panel2.add(name);
+		//final JList<String> friends = new JList<String>(JButton[] friendButton);
+		//for (int i = 0; i < friendButton.size(); i++) {
+		//	friends.add(friendButton.get(i));
+		//}
+		//JScrollPane scrollPane = new JScrollPane();
+		//scrollPane.setViewportView(friends);
+		//friends.setLayoutOrientation(JList.VERTICAL);
+		//panel.add(scrollPane, BorderLayout.SOUTH);
 		panel2.add(email);
 		panel2.add(phoneNum);
 		panel2.add(aboutMe);
 		panel3.add(likes);
 		panel3.add(dislikes);
 		panel2.add(panel3);
+		panelBottom.add(goBack);
+		panelTop.add(name);
 		frame.add(overallPanel, BorderLayout.CENTER);
+		frame.add(panelBottom, BorderLayout.SOUTH);
+		frame.add(panelTop, BorderLayout.NORTH);
 		overallPanel.setVisible(true);
 		
 		frame.setSize(400, 400);
