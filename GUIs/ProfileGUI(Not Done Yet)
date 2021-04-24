@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+
 public class ProfileGUI extends JFrame implements Runnable{
 	
     public static void main(String args []) {
@@ -20,46 +22,44 @@ public class ProfileGUI extends JFrame implements Runnable{
     }
     
     public ProfileGUI() {
-//Put events here
+    	//Put events here
      
     }
 	
 	public void run() {
 		JFrame frame = new JFrame();
 		frame.setTitle("Profile");
-		//strTextField = new JTextField(10);
-		//enterButton = new JButton("Enter");
-		GridLayout gridLayout = new GridLayout(0,2);
 		JPanel overallPanel = new JPanel();
-		overallPanel.setLayout(gridLayout);
+		overallPanel.setLayout(new GridLayout(0,2));
 		JPanel panel = new JPanel();
 		JPanel panel2 = new JPanel();
+		JPanel panel3 = new JPanel();
+		panel2.setLayout(new FlowLayout(FlowLayout.LEADING));
+		panel3.setLayout(new GridLayout(0,2));
 		overallPanel.add(panel);
-		overallPanel.add(panel2);
+		overallPanel.add(panel2, BorderLayout.CENTER);
 		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_192.gif");
 		JLabel picture = new JLabel(icon);
-		//JList list = new JList(); 
-		//list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		//list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		//list.setVisibleRowCount(-1);
-		JLabel name = new JLabel("Chad Brad");
-		JLabel email = new JLabel("ChadBrad2020@purdue.edu\n");
-		JLabel phoneNum = new JLabel("305-555-5555\n");
-		JLabel likesDislikes = new JLabel("-Surfing\n-Snapbacks\n-Being a Broski");
-		JLabel aboutMe = new JLabel("Living at Purdue and being one of the dudes");
+		JLabel name = new JLabel("<html><p>Chad Brad</p><p></p></html>");
+		JLabel email = new JLabel("<html><p>ChadBrad2020@purdue.edu</p><p></p></html>");
+		JLabel phoneNum = new JLabel("<html><p>305-555-5555</p><p></p></html>");
+		//For Likes and Dislikes put a for loop here to input each individual likes and dislikes
+		JLabel likes = new JLabel("<html><p>Likes:</p><p>-Surfing</p><p>-Snapbacks</p><p>-Being a Bro</p></html>");
+		JLabel dislikes = new JLabel("<html><p>DisLikes:</p><p>-Surfing</p><p>-Snapbacks</p><p>-Being a Bro</p></html>");
+		//JTextArea contactInfo = new JTextArea("Contact Info:\n" + phoneNum.getText() + "\n" + email.getText());
+		JLabel aboutMe = new JLabel("<html><p>Hi, My name is Chad!</p></html>");
 		panel.add(picture);
-		//panel.add(strTextField);
 		panel2.add(name);
 		panel2.add(email);
 		panel2.add(phoneNum);
-		panel2.add(likesDislikes);
 		panel2.add(aboutMe);
+		panel3.add(likes);
+		panel3.add(dislikes);
+		panel2.add(panel3);
 		frame.add(overallPanel, BorderLayout.CENTER);
-		panel.setVisible(true);
+		overallPanel.setVisible(true);
 		
-		//paint = new SimplePaint();
-		//content.add(paint, BorderLayout.CENTER);
-		frame.setSize(600, 400);
+		frame.setSize(400, 400);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
