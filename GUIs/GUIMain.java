@@ -7,7 +7,7 @@ public class GUIMain extends JComponent implements Runnable {
     JButton fillButton; // a button to change paint color
 
     private DefaultListModel<Datum> dataModel = new DefaultListModel<>();
-    private JList<Datum> datumList = new JList<>(dataModel);
+    //private JList<Datum> datumList = new JList<>(dataModel);
 
     GUIMain guimain; // variable of the type GUIMain
 
@@ -26,13 +26,13 @@ public class GUIMain extends JComponent implements Runnable {
 
     /* open profile */
     public void clear() {
-        JOptionPane.showMessageDialog(null, "Test1",
-                "Order Form",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Profile Opens",
+                "Open Profile",JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void fill() {
-        JOptionPane.showMessageDialog(null, "Test2",
-                "Order Form",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "What is the file name? (example: username.csv)",
+                "File Name",JOptionPane.INFORMATION_MESSAGE);
     }
 
     //--------------------------------
@@ -46,23 +46,23 @@ public class GUIMain extends JComponent implements Runnable {
 
     public void run() {
         /* set up JFrame */
-        JFrame frame = new JFrame("Challenge Exercise");
+        JFrame frame = new JFrame("Main Menu");
         Container content = frame.getContentPane();
         content.setLayout(new BorderLayout());
         guimain = new GUIMain();
         content.add(guimain, BorderLayout.CENTER);
 
         JPanel panel = new JPanel(); //top panel
-        clrButton = new JButton("Clear");
+        clrButton = new JButton("Open Profile");
         clrButton.addActionListener(actionListener);
         panel.add(clrButton);
 
-        fillButton = new JButton("Fill");
+        fillButton = new JButton("Import Profile");
         fillButton.addActionListener(actionListener);
         panel.add(fillButton);
-        content.add(panel, BorderLayout.NORTH);
+        content.add(panel, BorderLayout.SOUTH);
 
-        String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" };
+        String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" }; //append profile username to list
 
         JList userProfile = new JList(profileList);
         JScrollPane scrollPane = new JScrollPane(userProfile);
