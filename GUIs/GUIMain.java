@@ -1,13 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GUIMain extends JComponent implements Runnable {
-    JButton clrButton; // a button to clear screen
-    JButton fillButton; // a button to change paint color
+    JButton openButton; // a button to clear screen
+    JButton inputButton; // a button to change paint color
 
-    private DefaultListModel<Datum> dataModel = new DefaultListModel<>();
-    //private JList<Datum> datumList = new JList<>(dataModel);
+    JComboBox<String> comboBox;
+    String profileName;
+    String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" }; //append profile username to list
+    ArrayList<String> testArray = new ArrayList<String>(Arrays.asList(profileList));
 
     GUIMain guimain; // variable of the type GUIMain
 
@@ -15,29 +19,35 @@ public class GUIMain extends JComponent implements Runnable {
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == clrButton) {
-                guimain.clear();
+            if (e.getSource() == openButton) {
+                openProfile();
             }
-            if (e.getSource() == fillButton) {
-                guimain.fill();
+            if (e.getSource() == inputButton) {
+                //guimain.inputProfile();
+                inputProfile();
             }
+            //todo make action listener
         }
     };
 
     /* open profile */
-    public void clear() {
-        JOptionPane.showMessageDialog(null, "Profile Opens",
+    public void openProfile() {
+        JOptionPane.showMessageDialog(null, "[Profile Opens]",
                 "Open Profile",JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void fill() {
-        JOptionPane.showMessageDialog(null, "What is the file name? (example: username.csv)",
-                "File Name",JOptionPane.INFORMATION_MESSAGE);
+    public void inputProfile() {
+        profileName = JOptionPane.showInputDialog(null,
+                "What is the file name? (ex: username.csv)", "File Name", JOptionPane.QUESTION_MESSAGE);
+        testArray.add(profileName);
+        comboBox.addItem(profileName);
+
+        repaint();
+
     }
 
     //--------------------------------
     public GUIMain() {
-
     }
 
     public static void main(String[] args) {
@@ -48,33 +58,30 @@ public class GUIMain extends JComponent implements Runnable {
         /* set up JFrame */
         JFrame frame = new JFrame("Main Menu");
         Container content = frame.getContentPane();
+
+        comboBox = new JComboBox<>();
         content.setLayout(new BorderLayout());
         guimain = new GUIMain();
         content.add(guimain, BorderLayout.CENTER);
 
         JPanel panel = new JPanel(); //top panel
-        clrButton = new JButton("Open Profile");
-        clrButton.addActionListener(actionListener);
-        panel.add(clrButton);
+        openButton = new JButton("Open Profile");
+        openButton.addActionListener(actionListener);
+        panel.add(openButton);
 
-        fillButton = new JButton("Import Profile");
-        fillButton.addActionListener(actionListener);
-        panel.add(fillButton);
+        inputButton = new JButton("Import Profile");
+        inputButton.addActionListener(actionListener);
+        panel.add(inputButton);
         content.add(panel, BorderLayout.SOUTH);
 
-        String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" }; //append profile username to list
+        for (int i = 0; i < testArray.size(); i++) {
+            comboBox.addItem(testArray.get(i));
+        }
+        content.add(comboBox, BorderLayout.NORTH);
 
-        JList userProfile = new JList(profileList);
-        JScrollPane scrollPane = new JScrollPane(userProfile);
-
-        Container contentPane = frame.getContentPane();
-        contentPane.add(scrollPane, BorderLayout.CENTER);
-
-
-        frame.setSize(600, 400);
+        frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 }
