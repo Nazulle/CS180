@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GUIMain extends JComponent implements Runnable {
-    JButton openButton; // a button to clear screen
-    JButton inputButton; // a button to change paint color
+    JButton openButton;
+    JButton inputButton;
+    JButton editButton;
 
     JComboBox<String> comboBox;
     String profileName;
-    String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" }; //append profile username to list
-    ArrayList<String> testArray = new ArrayList<String>(Arrays.asList(profileList));
+    //String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" };
+    ArrayList<String> testArray = new ArrayList<String>(Arrays.asList());
 
     GUIMain guimain; // variable of the type GUIMain
 
@@ -19,14 +20,17 @@ public class GUIMain extends JComponent implements Runnable {
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == openButton) {
+            if (e.getSource() == openButton) { //TODO Action Listener
                 openProfile();
             }
+            if (e.getSource() == editButton) {
+                //guimain.inputProfile(); //not needed
+                editProfile();
+            }
             if (e.getSource() == inputButton) {
-                //guimain.inputProfile();
+                //guimain.inputProfile(); //not needed
                 inputProfile();
             }
-            //todo make action listener
         }
     };
 
@@ -34,16 +38,20 @@ public class GUIMain extends JComponent implements Runnable {
     public void openProfile() {
         JOptionPane.showMessageDialog(null, "[Profile Opens]",
                 "Open Profile",JOptionPane.INFORMATION_MESSAGE);
+
     }
 
-    public void inputProfile() {
+    public void editProfile() {
+        JOptionPane.showMessageDialog(null, "[Logged-in User Profile]",
+                "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void inputProfile() { //use for appending new profiles to main menu
         profileName = JOptionPane.showInputDialog(null,
                 "What is the file name? (ex: username.csv)", "File Name", JOptionPane.QUESTION_MESSAGE);
         testArray.add(profileName);
         comboBox.addItem(profileName);
-
         repaint();
-
     }
 
     //--------------------------------
@@ -64,10 +72,14 @@ public class GUIMain extends JComponent implements Runnable {
         guimain = new GUIMain();
         content.add(guimain, BorderLayout.CENTER);
 
-        JPanel panel = new JPanel(); //top panel
-        openButton = new JButton("Open Profile");
+        JPanel panel = new JPanel(); //bottom panel buttons
+        openButton = new JButton("Select Profile");
         openButton.addActionListener(actionListener);
         panel.add(openButton);
+
+        editButton = new JButton("Edit Your Profile");
+        editButton.addActionListener(actionListener);
+        panel.add(editButton);
 
         inputButton = new JButton("Import Profile");
         inputButton.addActionListener(actionListener);
