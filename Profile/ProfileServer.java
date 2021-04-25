@@ -20,7 +20,7 @@ import java.util.ArrayList;
         ArrayList<Profile> profiles = new ArrayList<>();
         Authentication profilesList = new Authentication(profiles);
         try {
-            profilesList.createProfile("minoj","1234");
+            profilesList.createProfile("minoj", "1234");
             profilesList.createProfile("sayyala", "1234");
         } catch (OccupiedProfileException e) {
             e.printStackTrace();
@@ -29,51 +29,52 @@ import java.util.ArrayList;
         boolean serverChek = true;
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
-
-        Socket socket = serverSocket.accept();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        PrintWriter writer = new PrintWriter(socket.getOutputStream());
-
         do {
-            // authentication class code
-            try {
-                String function = reader.readLine().trim();
-                String username = reader.readLine().trim();
-                String password = reader.readLine().trim();
-                System.out.println(username + password);
-                if (function.equals("login")) {
-                    Profile p = profilesList.login(username, password);
-                    System.out.println(p);
-                    if (p != null) {
-                        writer.println("Login Success");
-                    } else {
-                        writer.println("No matching username or password");
-                    }
-                    writer.flush();
-                }
-                if (function.equals("createAccount")) {
-                    try {
-                        Profile p = profilesList.createProfile(username, password);
+            Socket socket = serverSocket.accept();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+
+            do {
+                // authentication class code
+                try {
+                    String function = reader.readLine().trim();
+                    String username = reader.readLine().trim();
+                    String password = reader.readLine().trim();
+                    System.out.println(username + password);
+                    if (function.equals("login")) {
+                        Profile p = profilesList.login(username, password);
+                        System.out.println(p);
                         if (p != null) {
-                            writer.println("Create account Success");
-                            System.out.println(profilesList);
+                            writer.println("success");
+                        } else {
+                            writer.println("fail");
                         }
-                    } catch (OccupiedProfileException o) {
-                        System.out.println("Occupied Profile");
-                        writer.println("Occupied Profile");
+                        writer.flush();
                     }
-                    writer.flush();
+                    if (function.equals("createAccount")) {
+                        try {
+                            Profile p = profilesList.createProfile(username, password);
+                            if (p != null) {
+                                writer.println("Create account Success");
+                                System.out.println(profilesList);
+                            }
+                        } catch (OccupiedProfileException o) {
+                            System.out.println("Occupied Profile");
+                            writer.println("Occupied Profile");
+                        }
+                        writer.flush();
 
+                    }
+                } catch (NullPointerException n) {
+                    System.out.println("There was an null error");
+                    break;
                 }
-            } catch (NullPointerException n) {
-                System.out.println("There was an null error");
-                break;
-            }
-        } while (serverChek);
-        reader.close();
-        writer.close();
-        socket.close();
+            } while (serverChek);
+            reader.close();
+            writer.close();
+            socket.close();
+        } while (true);
+
+
     }
-
-
- }
+}
