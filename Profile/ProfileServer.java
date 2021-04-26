@@ -7,32 +7,41 @@ import java.util.ArrayList;
  *
  * This class consists of a server used to make Profiles and accounts for a social media app.
  *	
- * @author Saketh Ayyalasomayajula, sayyala@purdue.edu
+ * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
  * @version April 20th, 2021
  */
 
- public class ProfileServer {
-    // this is the list of all the users that the server will have
+ public class ProfileServer implements Runnable {
+    Socket csocket;
+    // initilization
+    static ArrayList<Profile> profiles = new ArrayList<>();
+    static Authentication profilesList = new Authentication(profiles);
+
+    public ProfileServer(Socket csocket) {
+        this.csocket = csocket;
+    }
 
 
     public static void main(String[] args) throws IOException {
-        // initilization
-        ArrayList<Profile> profiles = new ArrayList<>();
-        Authentication profilesList = new Authentication(profiles);
-        try {
-            profilesList.createProfile("minoj", "1234");
-            profilesList.createProfile("sayyala", "1234");
-        } catch (OccupiedProfileException e) {
-            e.printStackTrace();
-        }
 
         boolean serverChek = true;
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
-        do {
+
+        while (true) {
             Socket socket = serverSocket.accept();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream());
+            System.out.println("A Client connected");
+            System.out.println(profilesList);
+            new Thread(new ProfileServer(socket)).start();
+        }
+
+
+    }
+    @Override
+    public void run() {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+            PrintWriter writer = new PrintWriter(csocket.getOutputStream());
 
             do {
                 // authentication class code
@@ -69,12 +78,12 @@ import java.util.ArrayList;
                     System.out.println("There was an null error");
                     break;
                 }
-            } while (serverChek);
+            } while (true);
             reader.close();
             writer.close();
-            socket.close();
-        } while (true);
-
-
+            csocket.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
     }
 }
