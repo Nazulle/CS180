@@ -7,11 +7,6 @@ import javax.swing.*;
 
 
 public class ProfileGUI extends JFrame implements Runnable{
-	static JButton Ron = new JButton("Ron");
-	static JButton Jerry = new JButton("Jerry");
-	static JButton Leslie = new JButton("Leslie");
-	static JButton Ann_Perkins = new JButton("Ann Perkins");
-	static ArrayList<Object []> friendButton = new ArrayList<>();
 	
     public static void main(String args []) {
     	
@@ -19,67 +14,85 @@ public class ProfileGUI extends JFrame implements Runnable{
     	
     }
     
+    
+    //ProfileNotFoundException
+    
     public ProfileGUI() {
     	//Put events here
      
     }
 	
 	public void run() {
-		/**
-    	friendButton.add(Ron);
-    	friendButton.add(Jerry);
-    	friendButton.add(Leslie);
-    	friendButton.add(Ann_Perkins);
-    	*/
 		JFrame frame = new JFrame();
 		frame.setTitle("Profile");
+		
 		JPanel overallPanel = new JPanel();
-		overallPanel.setLayout(new GridLayout(0,2));
-		JPanel panel = new JPanel();
-		JPanel panel2 = new JPanel();
-		JPanel panel3 = new JPanel();
-		JPanel panelBottom = new JPanel();
+		overallPanel.setLayout(new GridLayout(0,2, 0, 0));
+		//overallPanel.setSize(200, 200);
+		
 		JPanel panelTop = new JPanel();
-		JPanel scroll = new JPanel();
-		scroll.setSize(100, 100);
-		panel2.setLayout(new FlowLayout(FlowLayout.LEADING));
-		panel3.setLayout(new GridLayout(0,2));
-		overallPanel.add(panel);
-		overallPanel.add(panel2, BorderLayout.CENTER);
-		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_192.gif");
-		JButton goBack = new JButton("Go Back");
-		JLabel picture = new JLabel(icon);
 		JLabel name = new JLabel("<html><p>Chad Brad</p><p></p></html>");
-		JLabel email = new JLabel("<html><p>ChadBrad2020@purdue.edu</p><p></p></html>");
-		JLabel phoneNum = new JLabel("<html><p>305-555-5555</p><p></p></html>");
-		//For Likes and Dislikes put a for loop here to input each individual likes and dislikes
-		JLabel likes = new JLabel("<html><p>Likes:</p><p>-Surfing</p><p>-Snapbacks</p><p>-Being a Bro</p></html>");
-		JLabel dislikes = new JLabel("<html><p>DisLikes:</p><p>-Surfing</p><p>-Snapbacks</p><p>-Being a Bro</p></html>");
-		//JTextArea contactInfo = new JTextArea("Contact Info:\n" + phoneNum.getText() + "\n" + email.getText());
-		JLabel aboutMe = new JLabel("<html><p>Hi, My name is Chad!</p></html>");
-		panel.add(picture);
-		//final JList<String> friends = new JList<String>(JButton[] friendButton);
-		//for (int i = 0; i < friendButton.size(); i++) {
-		//	friends.add(friendButton.get(i));
-		//}
-		//JScrollPane scrollPane = new JScrollPane();
-		//scrollPane.setViewportView(friends);
-		//friends.setLayoutOrientation(JList.VERTICAL);
-		//panel.add(scrollPane, BorderLayout.SOUTH);
+		panelTop.add(name);
+		
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_1921.jpg");
+		JLabel picture = new JLabel(icon);
+		panel.add(picture, BorderLayout.CENTER);
+		
+		JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		JLabel email = new JLabel("<html><p>user@gmail.com</p><p></p></html>");
+		JLabel phoneNum = new JLabel("<html><p>Phone Number</p><p></p></html>");
+		JLabel aboutMe = new JLabel("<html><p>Hi this is my Bio!</p></html>");
 		panel2.add(email);
 		panel2.add(phoneNum);
 		panel2.add(aboutMe);
+		
+		JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
+		JLabel likes = new JLabel("<html><p>Likes:</p><p>Like1</p><p>Like2</p><p>Like3</p></html>");
+		JLabel dislikes = new JLabel("<html><p>DisLikes:</p><p>Dislike1</p><p>Dislike2</p><p>Dislike3</p></html>");
 		panel3.add(likes);
 		panel3.add(dislikes);
-		panel2.add(panel3);
+		
+		JPanel panelBottom = new JPanel();
+		JButton goBack = new JButton("Go Back");
 		panelBottom.add(goBack);
-		panelTop.add(name);
+		
+		JPanel scrollPanel = new JPanel();
+		JScrollPane jsp = new JScrollPane(scrollPanel);
+		JButton enter = new JButton("Enter");
+		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		JComboBox<String> friendButton = new JComboBox<String>();
+		
+		//Example of taking friends String and putting it into scrollPanel
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		//Example friends ^^^
+		
+    	        scrollPanel.add(friendButton);
+    	        scrollPanel.add(enter, BorderLayout.EAST);
+		panel.add(jsp, BorderLayout.NORTH);
+
+		overallPanel.add(panel);
+		overallPanel.add(panel2, BorderLayout.CENTER);
+		overallPanel.setVisible(true);
+		
+		panel2.add(panel3);
+		
 		frame.add(overallPanel, BorderLayout.CENTER);
 		frame.add(panelBottom, BorderLayout.SOUTH);
 		frame.add(panelTop, BorderLayout.NORTH);
-		overallPanel.setVisible(true);
 		
-		frame.setSize(400, 400);
+		frame.setSize(400, 350);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
