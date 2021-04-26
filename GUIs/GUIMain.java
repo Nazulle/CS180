@@ -11,7 +11,6 @@ public class GUIMain extends JComponent implements Runnable {
 
     JComboBox<String> comboBox;
     String profileName;
-    //String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" };
     ArrayList<String> testArray = new ArrayList<String>(); //if not working add: (Arrays.asList());
 
     GUIMain guimain; // variable of the type GUIMain
@@ -47,13 +46,9 @@ public class GUIMain extends JComponent implements Runnable {
     }
 
     public void editProfile(String user) {
-        if (!user.equals(currentUser)) {
-            JOptionPane.showMessageDialog(new JFrame(), "You can't edit someone else's profile!", "Error!",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Your Profile: " + user,
-                    "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
-        }
+        //opens the current user's profile
+        JOptionPane.showMessageDialog(null, "Your Profile: " + user,
+                "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void inputProfile() { //***Use for appending new profiles to main menu***
@@ -100,9 +95,6 @@ public class GUIMain extends JComponent implements Runnable {
             comboBox.addItem(testArray.get(i));
         }
         content.add(comboBox, BorderLayout.NORTH);
-
-
-        //profileName = comboBox.setSelectedItem(); [might not work]
         
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
