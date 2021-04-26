@@ -12,41 +12,51 @@ public class GUIMain extends JComponent implements Runnable {
     JComboBox<String> comboBox;
     String profileName;
     //String profileList[] = { "A", "B", "C", "D","E", "F", "G", "H","I", "J" };
-    ArrayList<String> testArray = new ArrayList<String>(Arrays.asList());
+    ArrayList<String> testArray = new ArrayList<String>(); //if not working add: (Arrays.asList());
 
     GUIMain guimain; // variable of the type GUIMain
+
+    String currentUser = "user123"; //Username for the current user. [Delete later]
 
     /* action listener for buttons */
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == openButton) { //TODO Action Listener
-                openProfile();
+            if (e.getSource() == openButton) {
+                //JComboBox cb = (JComboBox)e.getSource(); //not needed
+                String profile = (String)comboBox.getSelectedItem();
+                openProfile(profile);
+
             }
             if (e.getSource() == editButton) {
-                //guimain.inputProfile(); //not needed
-                editProfile();
+                //JComboBox cb = (JComboBox)e.getSource(); //not needed
+                String user = (String)comboBox.getSelectedItem();
+                editProfile(user);
             }
             if (e.getSource() == inputButton) {
-                //guimain.inputProfile(); //not needed
                 inputProfile();
             }
         }
     };
 
     /* open profile */
-    public void openProfile() {
-        JOptionPane.showMessageDialog(null, "[Profile Opens]",
+    public void openProfile(String profile) {
+        JOptionPane.showMessageDialog(null, profile,
                 "Open Profile",JOptionPane.INFORMATION_MESSAGE);
 
     }
 
-    public void editProfile() {
-        JOptionPane.showMessageDialog(null, "[Logged-in User Profile]",
-                "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
+    public void editProfile(String user) {
+        if (!user.equals(currentUser)) {
+            JOptionPane.showMessageDialog(new JFrame(), "You can't edit someone else's profile!", "Error!",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Your Profile: " + user,
+                    "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    public void inputProfile() { //use for appending new profiles to main menu
+    public void inputProfile() { //***Use for appending new profiles to main menu***
         profileName = JOptionPane.showInputDialog(null,
                 "What is the file name? (ex: username.csv)", "File Name", JOptionPane.QUESTION_MESSAGE);
         testArray.add(profileName);
@@ -91,6 +101,9 @@ public class GUIMain extends JComponent implements Runnable {
         }
         content.add(comboBox, BorderLayout.NORTH);
 
+
+        //profileName = comboBox.setSelectedItem(); [might not work]
+        
         frame.setSize(400, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
