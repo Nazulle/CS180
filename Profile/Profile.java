@@ -1,3 +1,5 @@
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -16,9 +18,10 @@ public class Profile {
     private String phone;
     private String name;
     private String aboutMe;
+    private String likes;
 
     private ArrayList<Profile> friends = new ArrayList<Profile>();
-    private ArrayList<Profile> myFriendRequest = new ArrayList<Profile>();
+    private ArrayList<Profile> receivedFriendRequest = new ArrayList<Profile>();
     private ArrayList<Profile> sentFriendRequest = new ArrayList<Profile>();
 
 
@@ -86,8 +89,8 @@ public class Profile {
     public ArrayList<Profile> getFriends() {
         return friends;
     }
-    public ArrayList<Profile> getMyFriendRequest() {
-        return myFriendRequest;
+    public ArrayList<Profile> getReceivedFriendRequest() {
+        return receivedFriendRequest;
     }
     public ArrayList<Profile> getSentFriendRequest() {
         return sentFriendRequest;
@@ -116,26 +119,26 @@ public class Profile {
     }
 
     /**
-     * If I send friend request, add it to sentFriendRequest in my Profile / myFriendRequest in their Profile
+     * If I send friend request, add it to sentFriendRequest in my Profile / receivedFriendRequest in their Profile
      * If cannot find the profile, throw ProfileNotFoundException
      */
     public void sendFriendRequest(Profile prof) throws ProfileNotFoundException {
         try {
             this.sentFriendRequest.add(prof);
-            prof.getMyFriendRequest().add(this);
+            prof.getReceivedFriendRequest().add(this);
         } catch (NullPointerException n) {
             throw new ProfileNotFoundException();
         }
     }
 
     /**
-     * If I accept friend request in myFriendRequest, delete it from myFriendRequest
+     * If I accept friend request in receivedFriendRequest, delete it from receivedFriendRequest
      * in my Profile / sentFriendRequest in their Profile and add it into Friends list of both
      * If cannot find the profile, throw ProfileNotFoundException
      */
     public void acceptFriendRequest (Profile prof) throws ProfileNotFoundException {
         try {
-            this.myFriendRequest.remove(prof);
+            this.receivedFriendRequest.remove(prof);
             prof.getSentFriendRequest().remove(this);
             this.friends.add(prof);
             prof.getFriends().add(this);
@@ -148,7 +151,7 @@ public class Profile {
      * remove friend request from unwanted user
      */
     public void removeFriendRequest (Profile prof) {
-        this.myFriendRequest.remove(prof);
+        this.receivedFriendRequest.remove(prof);
         prof.getSentFriendRequest().remove(this);
     }
 
@@ -177,15 +180,28 @@ public class Profile {
         //send friend request
         user.sendFriendRequest(profiles.getProfile("sayyala"));
         System.out.println(user.getSentFriendRequest()); //should print sayyala
-        System.out.println(profiles.getProfile("sayyala").getMyFriendRequest()); //should print minoj
+        System.out.println(profiles.getProfile("sayyala").getReceivedFriendRequest()); //should print minoj
 
         //accept friend request (in sayyala's account)
         Profile user2 = profiles.login("sayyala", "1234");
         user2.acceptFriendRequest(profiles.getProfile("minoj"));
         System.out.println(profiles.getProfile("minoj").getSentFriendRequest()); //should print nothing
-        System.out.println(user2.getMyFriendRequest()); // should print nothing
+        System.out.println(user2.getReceivedFriendRequest()); // should print nothing
         System.out.println(profiles.getProfile("minoj").getFriends()); // should print sayyala
         System.out.println(user2.getFriends()); // should print minoj
+
+        InetAddress ip;
+        try {
+
+            ip = InetAddress.getLocalHost();
+            System.out.println("Current IP address : " + ip.getHostAddress());
+
+        } catch (UnknownHostException e) {
+
+            e.printStackTrace();
+
+        }
+
 
     }
 
