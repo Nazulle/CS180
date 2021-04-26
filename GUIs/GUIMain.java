@@ -4,6 +4,15 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ CS 180 Spring 2021
+
+ Main Menu GUI that shows all user profiles.
+
+ @author Gabriel Segura, CS 180
+  * @version April 20, 2021
+ */
+
 public class GUIMain extends JComponent implements Runnable {
     JButton openButton;
     JButton inputButton;
@@ -22,15 +31,13 @@ public class GUIMain extends JComponent implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == openButton) {
-                //JComboBox cb = (JComboBox)e.getSource(); //not needed
                 String profile = (String)comboBox.getSelectedItem();
                 openProfile(profile);
 
             }
             if (e.getSource() == editButton) {
-                //JComboBox cb = (JComboBox)e.getSource(); //not needed
-                String user = (String)comboBox.getSelectedItem();
-                editProfile(user);
+                //String user = (String)comboBox.getSelectedItem();
+                editProfile();
             }
             if (e.getSource() == inputButton) {
                 inputProfile();
@@ -38,17 +45,21 @@ public class GUIMain extends JComponent implements Runnable {
         }
     };
 
-    /* open profile */
+    /* user actions */
     public void openProfile(String profile) {
-        JOptionPane.showMessageDialog(null, profile,
-                "Open Profile",JOptionPane.INFORMATION_MESSAGE);
-
+        if (profile == null) {
+            JOptionPane.showMessageDialog(null, "No Profile Selected!",
+                    "Open Profile",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, profile,
+                    "Open Profile",JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
-    public void editProfile(String user) {
+    public void editProfile() {
         //opens the current user's profile
-        JOptionPane.showMessageDialog(null, "Your Profile: " + user,
-                "Open User Profile",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Your Profile: " + currentUser,
+                "Edit User Profile",JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void inputProfile() { //***Use for appending new profiles to main menu***
@@ -95,8 +106,8 @@ public class GUIMain extends JComponent implements Runnable {
             comboBox.addItem(testArray.get(i));
         }
         content.add(comboBox, BorderLayout.NORTH);
-        
-        frame.setSize(400, 300);
+
+        frame.setSize(400, 250);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
