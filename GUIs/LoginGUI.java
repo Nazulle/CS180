@@ -11,8 +11,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.net.Socket;
 
 public class LoginGUI extends JComponent implements Runnable {
+    Socket socket;
+
+    JFrame frame;
     JButton loginButton;
     JButton newAccount;
     JButton createAccount;
@@ -56,7 +60,10 @@ public class LoginGUI extends JComponent implements Runnable {
                 ProfileClient.password = passText.getText();
 
                 try {
-                    ProfileClient.sendLoginInfo();
+                    boolean b = ProfileClient.sendLoginInfo(socket);
+                    if (b) {
+                        frame.dispose();
+                    }
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -108,7 +115,7 @@ public class LoginGUI extends JComponent implements Runnable {
                     JOptionPane.showMessageDialog(null, "Invalid username or password specifications. Try again!", "Create Account", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
-                        ProfileClient.createAccount();
+                        ProfileClient.createAccount(socket);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -119,7 +126,7 @@ public class LoginGUI extends JComponent implements Runnable {
 
     public void run() {
         // This is the first panel that pops up when the program is run
-        JFrame frame = new JFrame("Login Menu");
+        frame = new JFrame("Login Menu");
         Container content = frame.getContentPane();
         content.setLayout(new BorderLayout());
         //content.add(BorderLayout.CENTER);
@@ -153,6 +160,12 @@ public class LoginGUI extends JComponent implements Runnable {
         botPanel.add(loginButton);
         botPanel.add(newAccount);
         content.add(botPanel, BorderLayout.CENTER);
+
+        try {
+            socket = new Socket("10.0.0.234", 4242);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new LoginGUI());
