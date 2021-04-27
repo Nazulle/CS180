@@ -1,0 +1,144 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+public class MyProfileGUI extends JFrame implements Runnable {
+
+	JComboBox<String> friendButton = new JComboBox<String>();
+	JButton goBack;
+	JButton enter;
+	JButton denyFriend;
+	JButton acceptFriend;
+	JButton unFriend;
+	JButton sendFriendRequest;
+	
+	JScrollPane jsp;
+	String choice;
+	JFrame frame;
+	
+	boolean areTheyYourFriend;
+	boolean theySentyouFriendRequest;
+	
+	ActionListener actionListener;
+	ItemListener ItemListener;
+
+	public static void main(String args[]) {
+		SwingUtilities.invokeLater(new MyProfileGUI());
+	}
+
+	public MyProfileGUI() {
+		ItemListener = new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getSource() == friendButton) {
+					JComboBox getSelection = friendButton;
+					choice = (String) getSelection.getSelectedItem();
+				}
+			}
+		};
+
+		actionListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == enter) {
+					try {
+						//System.out.println(choice);
+					} catch (ProfileNotFoundException e) {
+						throw new ProfileNotFoundException();
+					}
+				}
+				if (e.getSource() == goBack) {
+					frame.dispose();
+					// Go back to main
+				}
+			}
+
+		};
+
+	}
+
+	public void run() {
+		frame = new JFrame();
+		frame.setTitle("Profile");
+
+		JPanel overallPanel = new JPanel();
+		overallPanel.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JLabel name = new JLabel("<html><p>Chad Brad</p><p></p></html>");
+		panelTop.add(name);
+
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 15));
+		ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_1921.jpg");
+		JLabel picture = new JLabel(icon);
+		panel.add(picture, BorderLayout.CENTER);
+
+		JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		JLabel email = new JLabel("<html><p>user@gmail.com</p><p></p></html>");
+		JLabel phoneNum = new JLabel("<html><p>Phone Number</p><p></p></html>");
+		JLabel aboutMe = new JLabel("<html><p>Hi this is my Bio!</p></html>");
+		panel2.add(email);
+		panel2.add(phoneNum);
+		panel2.add(aboutMe);
+
+		JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
+		JLabel likes = new JLabel("<html><p>Likes:</p><p>Like1</p><p>Like2</p><p>Like3</p></html>");
+		JLabel dislikes = new JLabel("<html><p>DisLikes:</p><p>Dislike1</p><p>Dislike2</p><p>Dislike3</p></html>");
+		panel3.add(likes);
+		panel3.add(dislikes);
+
+		JPanel panelBottom = new JPanel();
+		goBack = new JButton("Go Back");
+		goBack.addActionListener(actionListener);
+		panelBottom.add(goBack);
+
+		JPanel scrollPanel = new JPanel();
+		jsp = new JScrollPane(scrollPanel);
+		enter = new JButton("Enter");
+		enter.addActionListener(actionListener);
+		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		friendButton.addItemListener(ItemListener);
+
+		// Example of taking friends String and putting it into scrollPanel
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend1");
+		friendButton.addItem("Friend2");
+		friendButton.addItem("Friend1");
+		// Example friends ^^^
+
+		scrollPanel.add(friendButton);
+		scrollPanel.add(enter, BorderLayout.EAST);
+		panel.add(jsp, BorderLayout.NORTH);
+
+		overallPanel.add(panel);
+		overallPanel.add(panel2, BorderLayout.CENTER);
+		overallPanel.setVisible(true);
+
+		panel2.add(panel3);
+
+		frame.add(overallPanel, BorderLayout.CENTER);
+		frame.add(panelBottom, BorderLayout.SOUTH);
+		frame.add(panelTop, BorderLayout.NORTH);
+
+		frame.setSize(400, 350);
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
+	}
+
+}
