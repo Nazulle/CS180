@@ -15,7 +15,7 @@ import java.net.Socket;
 
 public class LoginGUI extends JComponent implements Runnable {
     Socket socket;
-
+    //variables for login/create account Frame
     JFrame frame;
     JButton loginButton;
     JButton newAccount;
@@ -43,7 +43,36 @@ public class LoginGUI extends JComponent implements Runnable {
     String newUserInput;
     String newPassInput;
 
-    boolean buttonCheck = false;
+    //variables for createProfile Frame
+
+    JFrame pfFrame;
+    JButton submitButton;
+
+    JLabel titleScreen;
+    JLabel name;
+    JLabel userPhone;
+    JLabel userLikes;
+    JLabel userDislikes;
+    JLabel userAge;
+    JLabel userEmail;
+    JLabel userAboutMe;
+
+    JTextField profName;
+    JTextField profAge;
+    JTextField profPhone;
+    JTextField profEmail;
+    JTextField profLikes;
+    JTextField profDislikes;
+    JTextArea profAboutMe;
+
+    String sentName;
+    String sentAge;
+    String sentPhone;
+    String sentEmail;
+    String sentLikes;
+    String sentDislikes;
+    String sentAboutMe;
+
 
     ActionListener actionListener = new ActionListener() {
         @Override
@@ -116,11 +145,33 @@ public class LoginGUI extends JComponent implements Runnable {
                 } else {
                     try {
                         ProfileClient.createAccount(socket);
+                        pfFrame.setVisible(true);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 }
             }
+            //Button in ProfileCreation Frame
+            if (e.getSource() == submitButton) {
+                sentName = profName.getText();
+                sentAge = profAge.getText();
+                sentPhone = profPhone.getText();
+                sentEmail = profEmail.getText();
+                sentLikes = profLikes.getText();
+                sentDislikes = profDislikes.getText();
+                sentAboutMe = profAboutMe.getText();
+
+                if (sentName.equals("") || sentAge.equals("") || sentPhone.equals("") || sentEmail.equals("")
+                        || sentLikes.equals("") || sentDislikes.equals("") || sentAboutMe.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Make sure to fill all specifed fields. Try again!", "Profile Creation", JOptionPane.ERROR_MESSAGE);
+                }
+
+                // retrieve filled in profile information from text fields and send to client/server for that account
+                ProfileClient.createProfile(socket, sentName, sentAge, sentPhone, sentEmail,
+                        sentLikes, sentDislikes, sentAboutMe);
+
+            }
+
         }
     };
 
@@ -160,6 +211,116 @@ public class LoginGUI extends JComponent implements Runnable {
         botPanel.add(loginButton);
         botPanel.add(newAccount);
         content.add(botPanel, BorderLayout.CENTER);
+
+        //Frame for Profile Creation
+        pfFrame = new JFrame("Profile Registration");
+        Container c = pfFrame.getContentPane();
+        c.setLayout(null);
+
+        pfFrame.setBounds(300, 90, 900, 600);
+        pfFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        pfFrame.setResizable(true);
+        pfFrame.setVisible(true);
+
+        titleScreen = new JLabel("Registration Form");
+        titleScreen.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        titleScreen.setSize(300, 30);
+        titleScreen.setLocation(300, 30);
+        c.add(titleScreen);
+
+        name = new JLabel("Name:");
+        name.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        name.setSize(150, 20);
+        name.setLocation(100, 100);
+        c.add(name);
+
+        profName = new JTextField();
+        profName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profName.setSize(150, 20);
+        profName.setLocation(200, 100);
+        c.add(profName);
+
+        userPhone = new JLabel("Phone #:");
+        userPhone.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userPhone.setSize(100, 20);
+        userPhone.setLocation(100, 150);
+        c.add(userPhone);
+
+        profPhone = new JTextField();
+        profPhone.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profPhone.setSize(150, 20);
+        profPhone.setLocation(200, 150);
+        c.add(profPhone);
+
+        userEmail = new JLabel("Email:");
+        userEmail.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userEmail.setSize(100, 20);
+        userEmail.setLocation(100, 200);
+        c.add(userEmail);
+
+        profEmail = new JTextField();
+        profEmail.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profEmail.setSize(150, 20);
+        profEmail.setLocation(200, 200);
+        c.add(profEmail);
+
+        userAge = new JLabel("Age:");
+        userAge.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userAge.setSize(100, 20);
+        userAge.setLocation(100, 250);
+        c.add(userAge);
+
+        profAge = new JTextField();
+        profAge.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profAge.setSize(150, 20);
+        profAge.setLocation(200, 250);
+        c.add(profAge);
+
+        userLikes = new JLabel("Likes:");
+        userLikes.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userLikes.setSize(100, 20);
+        userLikes.setLocation(100, 300);
+        c.add(userLikes);
+
+        profLikes = new JTextField();
+        profLikes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profLikes.setSize(250, 20);
+        profLikes.setLocation(200, 300);
+        c.add(profLikes);
+
+        userDislikes = new JLabel("Dislikes:");
+        userDislikes.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userDislikes.setSize(100, 20);
+        userDislikes.setLocation(100, 350);
+        c.add(userDislikes);
+
+        profDislikes = new JTextField();
+        profDislikes.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profDislikes.setSize(250, 20);
+        profDislikes.setLocation(200, 350);
+        c.add(profDislikes);
+
+        userAboutMe = new JLabel("About Me:");
+        userAboutMe.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        userAboutMe.setSize(100, 20);
+        userAboutMe.setLocation(100, 400);
+        c.add(userAboutMe);
+
+        profAboutMe = new JTextArea();
+        profAboutMe.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+        profAboutMe.setSize(300, 50);
+        profAboutMe.setLocation(200, 400);
+        profAboutMe.setLineWrap(true);
+        c.add(profAboutMe);
+
+        submitButton = new JButton("Submit!");
+        submitButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        submitButton.setSize(100, 50);
+        submitButton.setLocation(200, 500);
+        c.add(submitButton);
+        pfFrame.setVisible(false);
+
+
 
         try {
             socket = new Socket("10.0.0.234", 4242);
