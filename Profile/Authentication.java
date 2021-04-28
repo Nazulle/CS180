@@ -60,6 +60,18 @@ public class Authentication {
         return null;
     }
 
+    public void removeProfile(String username, String password) {
+        for (Profile p : profiles) {
+            if (p.getUsername().equals(username)) {
+                profiles.remove(p);
+            }
+        }
+    }
+
+    public ArrayList<Profile> getProfiles() {
+        return profiles;
+    }
+
     @Override
     public String toString() {
         return profiles.toString();
