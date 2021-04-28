@@ -1,7 +1,7 @@
 /**
  * MergedGUI
  *
- * A class that represents the login and create new account panels for the social media app.
+ * A GUI for the social media app.
  *
  * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu),
  * merged and edited by Minwoo Jung (jung361@purdue.edu)
