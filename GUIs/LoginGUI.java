@@ -314,6 +314,7 @@ public class LoginGUI extends JComponent implements Runnable {
         c.add(profAboutMe);
 
         submitButton = new JButton("Submit!");
+        submitButton.addActionListener(actionListener);
         submitButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
         submitButton.setSize(100, 50);
         submitButton.setLocation(200, 500);
