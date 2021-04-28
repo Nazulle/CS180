@@ -1,6 +1,7 @@
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Profile
@@ -11,14 +12,17 @@ import java.util.ArrayList;
  * @version April 22th
  */
 
-public class Profile {
+public class Profile implements Serializable{
     private String username;
     private String password;
     private String email;
     private String phone;
     private String name;
-    private String aboutMe;
+    private String age;
     private String likes;
+    private String dislikes;
+    private String aboutMe;
+
 
     private ArrayList<Profile> friends = new ArrayList<Profile>();
     private ArrayList<Profile> receivedFriendRequest = new ArrayList<Profile>();
@@ -27,13 +31,17 @@ public class Profile {
 
     /** General Constructor
      */
-    public Profile(String username, String password, String email, String name,String phone, String aboutMe) {
+    public Profile(String username, String password, String name, String age, String phone, String email,
+                   String likes, String dislikes, String aboutMe) {
         this.username = username;
         this.password = password;
         this.name = name;
+        this.age = age;
         this.email = email;
         this.phone = phone;
         this.aboutMe = aboutMe;
+        this.likes = likes;
+        this.dislikes = dislikes;
     }
 
     /**
@@ -80,12 +88,38 @@ public class Profile {
     public String getName() {
         return this.name;
     }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
     }
     public String getAboutMe() {
         return this.aboutMe;
     }
+
+    public String getLikes() {
+        return likes;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
+    public String getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(String dislikes) {
+        this.dislikes = dislikes;
+    }
+
     public ArrayList<Profile> getFriends() {
         return friends;
     }
