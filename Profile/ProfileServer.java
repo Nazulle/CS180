@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.*;
-import javax.swing.*;
 import java.util.ArrayList;
 /**
  * Profile Server
@@ -27,11 +26,12 @@ import java.util.ArrayList;
         boolean serverChek = true;
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
+        System.out.println(serverSocket.getInetAddress().getHostAddress());
 
         while (true) {
             Socket socket = serverSocket.accept();
             System.out.println("A Client connected");
-            System.out.println(profilesList);
+            //System.out.println(profilesList);
             new Thread(new ProfileServer(socket)).start();
         }
 
@@ -42,6 +42,7 @@ import java.util.ArrayList;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
             PrintWriter writer = new PrintWriter(csocket.getOutputStream());
+            ObjectOutputStream ois = new ObjectOutputStream(csocket.getOutputStream());
 
             do {
                 // authentication class code
@@ -49,7 +50,7 @@ import java.util.ArrayList;
                     String function = reader.readLine().trim();
                     String username = reader.readLine().trim();
                     String password = reader.readLine().trim();
-                    System.out.println(username + password);
+                    System.out.println(username + " has requested an action.");
                     if (function.equals("login")) {
                         Profile p = profilesList.login(username, password);
                         System.out.println(p);
@@ -74,6 +75,52 @@ import java.util.ArrayList;
                         writer.flush();
 
                     }
+                    if (function.equals("createProfile")) {
+                        Profile p = profilesList.getProfile(username);
+                        String name = reader.readLine();
+                        String age = reader.readLine();
+                        String phone = reader.readLine();
+                        String email = reader.readLine();
+                        String likes = reader.readLine();
+                        String dislikes = reader.readLine();
+                        String aboutMe = reader.readLine();
+                        if (p != null) {
+                            p.setName(name);
+                            p.setAge(age);
+                            p.setEmail(email);
+                            p.setPhone(phone);
+                            p.setLikes(likes);
+                            p.setDislikes(dislikes);
+                            p.setAboutMe(aboutMe);
+                            writer.println("Profile successfully created. " + p.getName());
+                        }
+                        else
+                            writer.println("An error occurred: Cannot find account");
+                        writer.flush();
+                    }
+
+                    if (function.equals("getProfileList")) {
+                        Profile p = profilesList.getProfile(username);
+                        String type = reader.readLine();
+                        if (type.equals("allUsers")) {
+                            ois.writeObject(profilesList.getProfiles());
+                        }
+
+                        if (type.equals("friends")) {
+                            ois.writeObject(p.getFriends());
+                        }
+
+                        if (type.equals("sentFriendRequests")) {
+                            ois.writeObject(p.getSentFriendRequest());
+                        }
+
+                        if (type.equals("receivedFriendRequests")) {
+                            ois.writeObject(p.getReceivedFriendRequest());
+                        }
+                        ois.flush();
+                    }
+
+
                 } catch (NullPointerException n) {
                     System.out.println("There was an null error");
                     break;
