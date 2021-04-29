@@ -3,9 +3,9 @@
  *
  * A GUI for the social media app.
  *
- * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu), Abby (write your full name and email here)
+ * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu),
  * merged and edited by Minwoo Jung (jung361@purdue.edu)
- * @version April 29th
+ * @version April 28th
  */
 
 import javax.swing.*;
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class MergedGUI extends JComponent implements Runnable {
     Socket socket;
     Profile myProfile;
+    Profile currentProfile;
     ArrayList<Profile> allUsers;
 
     //variables for login/create account Frame
@@ -77,10 +78,10 @@ public class MergedGUI extends JComponent implements Runnable {
     String sentLikes;
     String sentDislikes;
     String sentAboutMe;
-    
+
     //variables of GUIMain
     JFrame mainFrame;
-    
+
     JButton openButton;
     JButton inputButton;
     JButton editButton;
@@ -90,9 +91,16 @@ public class MergedGUI extends JComponent implements Runnable {
     ArrayList<String> testArray = new ArrayList<String>(); //if not working add: (Arrays.asList());
 
 
-    String currentUser = "user123"; //Username for the current user. [Delete later]
-
     //variables for profileGUI
+    JLabel currentProfileName;
+    JLabel email;
+    JLabel phoneNum;
+    JLabel aboutMe;
+    JLabel likes;
+    JLabel dislikes;
+
+    JPanel panelTop;
+
     JComboBox<String> friendButton = new JComboBox<String>();
     JButton goBack;
     JButton enter;
@@ -215,7 +223,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
                 // retrieve filled in profile information from text fields and send to client/server for that account
                 else {
-                    ProfileClient.createProfile(socket, sentName, sentAge, sentPhone, sentEmail,
+                    ProfileClient.setProfile(socket, sentName, sentAge, sentPhone, sentEmail,
                             sentLikes, sentDislikes, sentAboutMe);
                     loginFrame.dispose();
                     accountFrame.dispose();
@@ -225,12 +233,14 @@ public class MergedGUI extends JComponent implements Runnable {
                 }
 
             }
-            
+
             //Buttons in GUIMain
             if (e.getSource() == openButton) {
-                String profile = (String)comboBox.getSelectedItem();
-                openProfile(profile);
-
+                String selectedItem = (String) comboBox.getSelectedItem();
+                String[] s = selectedItem.split("<");
+                String username = s[1].substring(0,s[1].length() - 1);
+                setCurrentProfile(ProfileClient.getProfileFromList(allUsers, username));
+                openProfile(currentProfile);
             }
             if (e.getSource() == editButton) {
                 //String user = (String)comboBox.getSelectedItem();
@@ -242,23 +252,46 @@ public class MergedGUI extends JComponent implements Runnable {
 
             //Buttons in profileGUI
             if (e.getSource() == enter) {
-
+                //System.out.println("clicked");
+                String selectedFriend = (String) friendButton.getSelectedItem();
+                if (selectedFriend != null) {
+                    String[] s = selectedFriend.split("<");
+                    String username = s[1].substring(0, s[1].length() - 1);
+                    setCurrentProfile(ProfileClient.getProfileFromList(allUsers, username));
+                    profileGUIFrame.dispose();
+                    openProfile(currentProfile);
+                } else
+                    JOptionPane.showMessageDialog(null, "No User Selected!", "Profile Creation", JOptionPane.ERROR_MESSAGE);
             }
             if (e.getSource() == goBack) {
                 profileGUIFrame.dispose();
                 // Go back to main
             }
             if (e.getSource() == acceptFriend) {
-                //DO-STUFF
+                try {
+                    ProfileClient.beFriend(socket, currentProfile.getUsername(), true);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
             if (e.getSource() == denyFriend) {
-                //DO-STUFF
+                try {
+                    ProfileClient.beFriend(socket, currentProfile.getUsername(), false);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
             if (e.getSource() == unFriend) {
                 //DO-STUFF
             }
             if (e.getSource() == sendFriendRequest) {
-                //DO-STUFF
+                try {
+                    System.out.println("clicked");
+                    ProfileClient.sendFriendRequest(socket, currentProfile.getUsername());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+
             }
 
         }
@@ -409,8 +442,8 @@ public class MergedGUI extends JComponent implements Runnable {
         submitButton.setLocation(200, 500);
         c.add(submitButton);
         pfFrame.setVisible(false);
-        
-        
+
+
         //Frame of GUIMain
         mainFrame = new JFrame("Main Menu");
         Container mainContent = mainFrame.getContentPane();
@@ -447,13 +480,13 @@ public class MergedGUI extends JComponent implements Runnable {
         JPanel overallPanel = new JPanel();
         overallPanel.setLayout(new GridLayout(0, 2, 0, 0));
 
-        JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel name = new JLabel("<html><p>Chad Brad</p><p></p></html>");
-        panelTop.add(name);
-        if (areTheyYourFriend == true) {
+        panelTop = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        currentProfileName = new JLabel("<html><p>Name Here</p><p></p></html>");
+        panelTop.add(currentProfileName);
+        if (areTheyYourFriend) {
             unFriend = new JButton("unfriend");
             panelTop.add(unFriend);
-        } else if (theySentYouFriendRequest == true){
+        } else if (theySentYouFriendRequest){
             acceptFriend = new JButton("Accept");
             acceptFriend.addActionListener(actionListener);
             denyFriend = new JButton("Deny");
@@ -462,6 +495,7 @@ public class MergedGUI extends JComponent implements Runnable {
             panelTop.add(denyFriend);
         } else {
             sendFriendRequest = new JButton("Send Request");
+            sendFriendRequest.addActionListener(actionListener);
             panelTop.add(sendFriendRequest);
         }
 
@@ -472,16 +506,16 @@ public class MergedGUI extends JComponent implements Runnable {
         profilePanel.add(picture, BorderLayout.CENTER);
 
         JPanel profilePanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        JLabel email = new JLabel("<html><p>user@gmail.com</p><p></p></html>");
-        JLabel phoneNum = new JLabel("<html><p>Phone Number</p><p></p></html>");
-        JLabel aboutMe = new JLabel("<html><p>Hi this is my Bio!</p></html>");
+        email = new JLabel("<html><p>Email Here</p><p></p></html>");
+        phoneNum = new JLabel("<html><p>Phone Number Here</p><p></p></html>");
+        aboutMe = new JLabel("<html><p>Hi this is my Bio!</p></html>");
         profilePanel2.add(email);
         profilePanel2.add(phoneNum);
         profilePanel2.add(aboutMe);
 
         JPanel profilePanel3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
-        JLabel likes = new JLabel("<html><p>Likes:</p><p>Like1</p><p>Like2</p><p>Like3</p></html>");
-        JLabel dislikes = new JLabel("<html><p>DisLikes:</p><p>Dislike1</p><p>Dislike2</p><p>Dislike3</p></html>");
+        likes = new JLabel("<html><p>Likes:</p><p>Like1</p><p>Like2</p><p>Like3</p></html>");
+        dislikes = new JLabel("<html><p>DisLikes:</p><p>Dislike1</p><p>Dislike2</p><p>Dislike3</p></html>");
         profilePanel3.add(likes);
         profilePanel3.add(dislikes);
 
@@ -527,13 +561,22 @@ public class MergedGUI extends JComponent implements Runnable {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new MergedGUI());
     }
-    
+
     //Methods in GUIMain
-    public void openProfile(String username) {
-        if (username == null) {
+    public void openProfile(Profile p) {
+        if (p == null) {
             JOptionPane.showMessageDialog(null, "No User Selected!",
                     "Open Profile",JOptionPane.ERROR_MESSAGE);
         } else {
+            currentProfileName.setText(p.getName());
+            email.setText("Email: " + p.getEmail());
+            phoneNum.setText("Phone: " + p.getPhone());
+            aboutMe.setText("About me!: " + p.getAboutMe());
+            likes.setText("Likes: " + p.getLikes());
+            dislikes.setText("Dislikes: " + p.getDislikes());
+            for (Profile friend : p.getFriends()) {
+                friendButton.addItem(friend.getName() + " <" + friend.getUsername() + ">");
+            }
             profileGUIFrame.setVisible(true);
         }
     }
@@ -542,6 +585,12 @@ public class MergedGUI extends JComponent implements Runnable {
         //opens the current user's profile
         myProfile = ProfileClient.getProfileFromList(allUsers, ProfileClient.username);
         profName.setText(myProfile.getName());
+        profAge.setText(myProfile.getAge());
+        profPhone.setText(myProfile.getPhone());
+        profEmail.setText(myProfile.getEmail());
+        profLikes.setText(myProfile.getLikes());
+        profDislikes.setText(myProfile.getDislikes());
+        profAboutMe.setText(myProfile.getAboutMe());
         pfFrame.setVisible(true);
     }
 
@@ -556,7 +605,8 @@ public class MergedGUI extends JComponent implements Runnable {
     //setup comboBox when logined
     public void setComboBox() {
         try {
-            allUsers = ProfileClient.getProfileList("allUsers");
+            allUsers = ProfileClient.getProfileList();
+            myProfile = ProfileClient.getProfileFromList(allUsers, ProfileClient.username);
             testArray = ProfileClient.getNamesAndUsernames(allUsers);
             for (int i = 0; i < testArray.size(); i++) {
                 comboBox.addItem(testArray.get(i));
@@ -567,6 +617,36 @@ public class MergedGUI extends JComponent implements Runnable {
 
         }
     }
-    
-    
+
+    /**
+     * Setting up the profile to view.
+     * Find out if the profile is friend or not and set the booleans.
+     */
+    public void setCurrentProfile(Profile profile) {
+        //System.out.println(myProfile.getReceivedFriendRequest().toString());
+        System.out.println(profile.toString());
+        System.out.println(myProfile.getReceivedFriendRequest().contains(profile));
+        this.currentProfile = profile;
+        if (myProfile.getFriends().contains(profile))
+            areTheyYourFriend = true;
+        if (myProfile.getReceivedFriendRequest().contains(profile))
+            theySentYouFriendRequest = true;
+
+        if (areTheyYourFriend) {
+            unFriend = new JButton("unfriend");
+            panelTop.add(unFriend);
+        } else if (theySentYouFriendRequest){
+            acceptFriend = new JButton("Accept");
+            acceptFriend.addActionListener(actionListener);
+            denyFriend = new JButton("Deny");
+            denyFriend.addActionListener(actionListener);
+            panelTop.add(acceptFriend);
+            panelTop.add(denyFriend);
+        } else {
+            sendFriendRequest = new JButton("Send Request");
+            sendFriendRequest.addActionListener(actionListener);
+            panelTop.add(sendFriendRequest);
+        }
+    }
+
 }
