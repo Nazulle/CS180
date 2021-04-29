@@ -184,10 +184,15 @@ public class Profile implements Serializable{
     /**
      * remove friend request from unwanted user
      */
-    public void removeFriendRequest (Profile prof) {
-        this.receivedFriendRequest.remove(prof);
-        prof.getSentFriendRequest().remove(this);
+    public void removeFriendRequest(Profile profile) throws ProfileNotFoundException{
+        try {
+            this.receivedFriendRequest.remove(profile);
+            profile.getSentFriendRequest().remove(this);
+        } catch (NullPointerException n) {
+            throw new ProfileNotFoundException();
+        }
     }
+
 
     /**
      * Just for test
@@ -196,8 +201,6 @@ public class Profile implements Serializable{
         ArrayList<Profile> profilesListInServer = new ArrayList<Profile>();
         Authentication profiles = new Authentication(profilesListInServer);
         //Create profiles
-        profiles.createProfile("minoj","1234");
-        profiles.createProfile("sayyala", "1234");
         System.out.println(profiles);   //should print created profiles
 
         /* Profile with same username should not be created
