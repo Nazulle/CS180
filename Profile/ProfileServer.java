@@ -105,12 +105,35 @@ import java.util.ArrayList;
                         ois.flush();
                     }
 
-                    if (function.equals("getProfile")) {
+                    if (function.equals("sendFriendRequest")) {
                         Profile p = profilesList.getProfile(username);
-                        ArrayList<Profile> ar = new ArrayList<Profile>();
-                        ar.add(p);
-                        ois.writeObject(ar);
-                        ois.flush();
+                        String friendUsername = reader.readLine();
+                        try {
+                            p.sendFriendRequest(profilesList.getProfile(friendUsername));
+                            writer.println("success");
+                        } catch (ProfileNotFoundException e) {
+                            writer.println("failed");
+                        }
+                        writer.flush();
+                    }
+
+                    if (function.equals("beFriend")) {
+                        Profile p = profilesList.getProfile(username);
+                        String friendUsername = reader.readLine();
+                        String accept = reader.readLine();
+                        try {
+                            if (accept.equals("accept")) {
+                                p.acceptFriendRequest(profilesList.getProfile(friendUsername));
+                                writer.println("accept");
+                            }
+                            else {
+                                p.removeFriendRequest(profilesList.getProfile(friendUsername));
+                                writer.println("remove");
+                            }
+                        } catch (ProfileNotFoundException e) {
+                            writer.println("failed");
+                        }
+                        writer.flush();
                     }
 
 
