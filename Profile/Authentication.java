@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Authentication Class will be the ArrayList of Profiles in the server.
  *  @author Minwoo Jung - jung361@purdue.edu, Saketh Ayyalasomayajula - sayyala@purdue.edu
- *  @version April 22th
+ *  @version April 29th
  */
 
 public class Authentication {
@@ -17,7 +17,7 @@ public class Authentication {
      * Create a new Profile with username & password. If the profile exist in the list, return null.
      * @return new Profile or null
      */
-    public Profile createProfile(String username, String password) throws OccupiedProfileException {
+    public Profile createAccount(String username, String password) throws OccupiedProfileException {
         Profile prof = new Profile(username, password);
         boolean isProfileExists = false;
         for (Profile p : profiles) {
