@@ -156,6 +156,55 @@ public class ProfileClient {
         return null;
     }
 
+    public static void sendFriendRequest(Socket socket, String friendUsername) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        if (socket.isConnected()) {
+            //System.out.println(username);
+            writer.println("sendFriendRequest");
+            writer.println(username);
+            writer.println(password);
+            writer.println(friendUsername);
+            writer.flush();
+            System.out.println(writer);
+            String result = reader.readLine();
+            System.out.println(result);
+            if (result.contains("success"))
+                JOptionPane.showMessageDialog(null, "Friend request sent.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    public static void beFriend(Socket socket, String friendUsername, boolean accept) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        if (socket.isConnected()) {
+            //System.out.println(username);
+            writer.println("beFriend");
+            writer.println(username);
+            writer.println(password);
+            writer.println(friendUsername);
+            if (accept)
+                writer.println("accept");
+            else
+                writer.println("deny");
+            writer.flush();
+            String result = reader.readLine();
+            if (result.contains("accept"))
+                JOptionPane.showMessageDialog(null, "You two are now friends.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else if (result.contains("remove"))
+                JOptionPane.showMessageDialog(null, "The friend request now removed.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+
+    }
     /**
      * Make a String Arraylist of name and username of profiles in Profile Arraylist
      * in order to put them on the list in GUI
