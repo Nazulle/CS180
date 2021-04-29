@@ -7,7 +7,7 @@ import javax.swing.*;
 /**
  * Project 5 Profile Client
  *
- *	
+ *
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
  * @version April 28th, 2021
  */
@@ -64,8 +64,7 @@ public class ProfileClient {
                 return true;
             }
             else {
-                JOptionPane.showMessageDialog(null, result, "Profile App", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println(result);
+                JOptionPane.showMessageDialog(null, "No matching Username or Password.", "Profile App", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         }
@@ -85,14 +84,17 @@ public class ProfileClient {
             writer.println(password);
             writer.flush();
             String result = reader.readLine();
-            JOptionPane.showMessageDialog(null, result, "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            if (result.contains("success"))
+                JOptionPane.showMessageDialog(null, "Created Account Successfully", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Occupied Username! Try something else.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
-    public static void createProfile(Socket socket, String name, String age, String phone, String email, String likes,
+    public static void setProfile(Socket socket, String name, String age, String phone, String email, String likes,
                                      String dislikes, String aboutMe)  {
         BufferedReader reader;
         PrintWriter writer;
@@ -102,7 +104,7 @@ public class ProfileClient {
 
             if (socket.isConnected()) {
                 //System.out.println(username);
-                writer.println("createProfile");
+                writer.println("setProfile");
                 writer.println(username);
                 writer.println(password);
                 writer.println(name);
@@ -128,7 +130,7 @@ public class ProfileClient {
      *  Four Options: allUsers, friends, sentFriendRequests, receivedFriendRequests
      *  All invalid arguments will return null value
      */
-    public static ArrayList<Profile> getProfileList(String type) {
+    public static ArrayList<Profile> getProfileList() {
         PrintWriter writer;
         ObjectInputStream ois;
         try {
@@ -139,39 +141,11 @@ public class ProfileClient {
                 writer.println("getProfileList");
                 writer.println(username);
                 writer.println(password);
-
-                if (type.equals("allUsers")) {
-                    writer.println("allUsers");
-                    writer.flush();
-                    ois = new ObjectInputStream(socket.getInputStream());
-                    ArrayList<Profile> allUsers = (ArrayList<Profile>) ois.readObject();
-                    //Works required: the user should be at the first place in this this list.
-                    return allUsers;
-                }
-
-                if (type.equals("friends")) {
-                    writer.println("friends");
-                    writer.flush();
-                    ois = new ObjectInputStream(socket.getInputStream());
-                    ArrayList<Profile> friends = (ArrayList<Profile>) ois.readObject();
-                    return friends;
-                }
-
-                if (type.equals("sentFriendRequests")) {
-                    writer.println("sentFriendRequests");
-                    writer.flush();
-                    ois = new ObjectInputStream(socket.getInputStream());
-                    ArrayList<Profile> sentFriendRequests = (ArrayList<Profile>) ois.readObject();
-                    return sentFriendRequests;
-                }
-
-                if (type.equals("receivedFriendRequests")) {
-                    writer.println("receivedFriendRequests");
-                    writer.flush();
-                    ois = new ObjectInputStream(socket.getInputStream());
-                    ArrayList<Profile> receivedFriendRequests = (ArrayList<Profile>) ois.readObject();
-                    return receivedFriendRequests;
-                }
+                writer.flush();
+                ois = new ObjectInputStream(socket.getInputStream());
+                ArrayList<Profile> allUsers = (ArrayList<Profile>) ois.readObject();
+                //Works required: the user should be at the first place in this this list.
+                return allUsers;
             }
             else {
                 JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
@@ -195,7 +169,17 @@ public class ProfileClient {
         return strings;
     }
 
-
+    /**
+     * Find out a profile from the Arraylist given and construct a new profile
+     */
+    public static Profile getProfileFromList(ArrayList<Profile> profiles, String username) {
+        for (Profile p : profiles) {
+            if (p.getUsername().equals(username)) {
+                return p;
+            }
+        }
+        return null;
+    }
 
 }
 
