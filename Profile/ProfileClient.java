@@ -17,14 +17,16 @@ public class ProfileClient {
     public static String username = "";
     public static String password = "";
     static Socket socket = null;
+    private static ObjectInputStream ois;
 
     public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
 
         JOptionPane.showMessageDialog(null, "Welcome to the Social Media Profile App!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         try {
+
             socket = new Socket("localhost", 4242);
             //System.out.println(socket.isConnected());
-            //login code
+            ois = new ObjectInputStream(socket.getInputStream());
             MergedGUI mergedGUI = new MergedGUI();
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
@@ -132,7 +134,6 @@ public class ProfileClient {
      */
     public static ArrayList<Profile> getProfileList() {
         PrintWriter writer;
-        ObjectInputStream ois;
         try {
             writer = new PrintWriter(socket.getOutputStream());
 
@@ -142,7 +143,6 @@ public class ProfileClient {
                 writer.println(username);
                 writer.println(password);
                 writer.flush();
-                ois = new ObjectInputStream(socket.getInputStream());
                 ArrayList<Profile> allUsers = (ArrayList<Profile>) ois.readObject();
                 //Works required: the user should be at the first place in this this list.
                 return allUsers;
