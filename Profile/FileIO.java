@@ -5,14 +5,17 @@ import java.io.*;
 public class FileIO {
 
     ArrayList<String> registeredAcc;
+    ArrayList<String> registeredProf;
+    String [] pf;
     String [] s;
     ArrayList <String> userNameList;
     ArrayList <String> passWordList;
+    ArrayList <String> userProfilesList;
 
-    public void writeAccountFile() {
+    public void writeAccountFile(String username, String password) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("accountsFileName.txt")))) {
 
-            out.write(username + "," password + "\n" );
+            out.write(username + "," password + "\n");
 
         } catch (IOException a) {
             a.printStackTrace();
@@ -52,9 +55,12 @@ public class FileIO {
 
     }
     
-    public void writeProfileFile() {
-        try {
-
+    public void writeProfileFile(ArrayList<Profile> userProfiles) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("profilesFileName.txt")))) {
+            for (int i = 0; i <= userProfiles.getSize(); i++) {
+                out.write(userProfiles.get(i).getName() + "|" + userProfiles.get(i).getPhone() + "|" + userProfiles.get(i).getEmail() +  "|" +
+                userProfiles.get(i).getLikes() + "|" + userProfiles.get(i).getDislikes() + "|" + userProfiles.get(i).getAboutMe() + "\n");
+            }
         } catch (IOException c) {
             c.printStackTrace();
         }
@@ -63,11 +69,27 @@ public class FileIO {
     
     public void readProfileFile() {
         try {
+            BufferedReader bfr = new BufferedReader(new FileReader("profilesFileName.txt"));
 
-        } catch (IOException c) {
-            c.printStackTrace();
+            registeredProf = new ArrayList<String>();
+            
+            String line;
+        
+            while ((line = bfr.readLine()) != null) {
+                registeredProf.add(line);
+            }
+        } catch (IOException d) {
+            d.printStackTrace();
         }
+        // this is the array that contains all the profile information for a particular user
+        userProfilesList = new ArrayList<Profile>();
 
+        for (int i = 0; i < registeredProf.size(); i++) {
+            pf = registeredAcc.get(i).split("|");
+
+            Profile n = new Profile(userNameList.get(i), passWordList.get(i), pf[0], pf[1], pf[2], pf[3], pf[4], pf[5], pf[6]);
+            userProfilesList.add(n);
+
+        }
     }
-
 }
