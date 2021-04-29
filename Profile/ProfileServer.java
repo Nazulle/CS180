@@ -26,12 +26,11 @@ import java.util.ArrayList;
         boolean serverChek = true;
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
-        System.out.println(serverSocket.getInetAddress().getHostAddress());
 
         while (true) {
             Socket socket = serverSocket.accept();
             System.out.println("A Client connected");
-            //System.out.println(profilesList);
+            System.out.println(profilesList);
             new Thread(new ProfileServer(socket)).start();
         }
 
@@ -40,7 +39,8 @@ import java.util.ArrayList;
     @Override
     public void run() {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+            InputStreamReader isr = new InputStreamReader(csocket.getInputStream());
+            BufferedReader reader = new BufferedReader(isr);
             PrintWriter writer = new PrintWriter(csocket.getOutputStream());
             ObjectOutputStream ois = new ObjectOutputStream(csocket.getOutputStream());
 
@@ -61,21 +61,22 @@ import java.util.ArrayList;
                         }
                         writer.flush();
                     }
+                    //Creating a User's account with username & password
                     if (function.equals("createAccount")) {
                         try {
-                            Profile p = profilesList.createProfile(username, password);
+                            Profile p = profilesList.createAccount(username, password);
                             if (p != null) {
-                                writer.println("Create account Success");
+                                writer.println("success");
                                 System.out.println(profilesList);
                             }
                         } catch (OccupiedProfileException o) {
-                            System.out.println("Occupied Profile");
-                            writer.println("Occupied Profile");
+                            writer.println("Occupied Username");
                         }
                         writer.flush();
 
                     }
-                    if (function.equals("createProfile")) {
+                    //Set the name / age etc. for the first time in the user's account
+                    if (function.equals("setProfile")) {
                         Profile p = profilesList.getProfile(username);
                         String name = reader.readLine();
                         String age = reader.readLine();
@@ -100,35 +101,29 @@ import java.util.ArrayList;
                     }
 
                     if (function.equals("getProfileList")) {
+                        ois.writeObject(profilesList.getProfiles());
+                        ois.flush();
+                    }
+
+                    if (function.equals("getProfile")) {
                         Profile p = profilesList.getProfile(username);
-                        String type = reader.readLine();
-                        if (type.equals("allUsers")) {
-                            ois.writeObject(profilesList.getProfiles());
-                        }
-
-                        if (type.equals("friends")) {
-                            ois.writeObject(p.getFriends());
-                        }
-
-                        if (type.equals("sentFriendRequests")) {
-                            ois.writeObject(p.getSentFriendRequest());
-                        }
-
-                        if (type.equals("receivedFriendRequests")) {
-                            ois.writeObject(p.getReceivedFriendRequest());
-                        }
+                        ArrayList<Profile> ar = new ArrayList<Profile>();
+                        ar.add(p);
+                        ois.writeObject(ar);
                         ois.flush();
                     }
 
 
+
                 } catch (NullPointerException n) {
-                    System.out.println("There was an null error");
+                    System.out.println("No Users connected now");
                     break;
                 }
             } while (true);
             reader.close();
             writer.close();
             csocket.close();
+
         } catch (IOException i) {
             i.printStackTrace();
         }
