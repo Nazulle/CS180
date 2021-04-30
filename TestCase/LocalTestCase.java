@@ -52,6 +52,7 @@ class RunLocalTestTwo {
         String likes = "likes";
         String dislikes = "dislikes";
         
+        
         try {
             testField = clazz.getDeclaredField(username);
         } catch (NoSuchFieldException e) {
@@ -127,6 +128,55 @@ class RunLocalTestTwo {
         }
         
         }
+	
+	public void profileConstructorTest() {
+        Profile obj = new Profile("username", "password", "name", "age",
+        		"phone", "email", "likes", "dislikes", "aboutMe");
+        assertEquals("username", obj.getUsername());
+        assertEquals("password", obj.getPassword());
+        assertEquals("age", obj.getAge());
+        assertEquals("phone", obj.getPhone());
+        assertEquals("email", obj.getEmail());
+        assertEquals("likes", obj.getLikes());
+        assertEquals("dislikes", obj.getDislikes());
+        assertEquals("aboutMe", obj.getAboutMe());
+        
+        Profile obj2 = new Profile("usernameOne", "passwordOne");
+        assertEquals("usernameOne", obj2.getUsername());
+        assertEquals("passwordOne", obj2.getPassword());
+	}
+	
+	public void profileSetterTest() {
+		Profile obj = new Profile("username", "password", "name", "age",
+        		"phone", "email", "likes", "dislikes", "aboutMe");
+		
+		obj.setUsername("one");
+        assertEquals("one", obj.getUsername());
+        
+		obj.setPassword("one");
+        assertEquals("one", obj.getPassword());
+        
+		obj.setName("one");
+        assertEquals("one", obj.getName());
+        
+		obj.setAge("one");
+        assertEquals("one", obj.getAge());
+        
+		obj.setPhone("one");
+        assertEquals("one", obj.getPhone());
+        
+		obj.setEmail("one");
+        assertEquals("one", obj.getEmail());
+        
+		obj.setLikes("one");
+        assertEquals("one", obj.getLikes());
+        
+		obj.setDislikes("one");
+        assertEquals("one", obj.getDislikes());
+        
+		obj.setAboutMe("one");
+        assertEquals("one", obj.getAboutMe());
+	}
 	}
     }
 }
