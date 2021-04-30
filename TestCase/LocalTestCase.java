@@ -23,6 +23,7 @@ class RunLocalTestTwo {
                 System.out.println(failure.toString());
             }
         }
+    }
 	
     class TestCase {
     	//Supposed to be public static class TestCase
@@ -178,5 +179,4 @@ class RunLocalTestTwo {
         assertEquals("one", obj.getAboutMe());
 	}
 	}
-    }
 }
