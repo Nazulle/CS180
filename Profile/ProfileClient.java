@@ -14,8 +14,8 @@ import javax.swing.*;
 
 public class ProfileClient {
 
-    public static String username = "";
-    public static String password = "";
+    public String username = "";
+    public String password = "";
     static Socket socket = null;
     private static ObjectInputStream ois;
 
@@ -51,14 +51,14 @@ public class ProfileClient {
         }
     }
 
-    public static boolean sendLoginInfo(Socket socket) throws IOException {
+    public boolean sendLoginInfo(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         if (socket.isConnected()) {
             //System.out.println(username);
             writer.println("login");
-            writer.println(username);
-            writer.println(password);
+            writer.println(this.username);
+            writer.println(this.password);
             writer.flush();
             String result = reader.readLine();
             if (result.contains("success")) {
@@ -76,14 +76,14 @@ public class ProfileClient {
         }
     }
 
-    public static void createAccount(Socket socket) throws IOException {
+    public void createAccount(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         if (socket.isConnected()) {
             //System.out.println(username);
             writer.println("createAccount");
-            writer.println(username);
-            writer.println(password);
+            writer.println(this.username);
+            writer.println(this.password);
             writer.flush();
             String result = reader.readLine();
             if (result.contains("success"))
@@ -96,7 +96,7 @@ public class ProfileClient {
 
     }
 
-    public static void setProfile(Socket socket, String name, String age, String phone, String email, String likes,
+    public void setProfile(Socket socket, String name, String age, String phone, String email, String likes,
                                      String dislikes, String aboutMe)  {
         BufferedReader reader;
         PrintWriter writer;
@@ -107,8 +107,8 @@ public class ProfileClient {
             if (socket.isConnected()) {
                 //System.out.println(username);
                 writer.println("setProfile");
-                writer.println(username);
-                writer.println(password);
+                writer.println(this.username);
+                writer.println(this.password);
                 writer.println(name);
                 writer.println(age);
                 writer.println(phone);
@@ -132,7 +132,7 @@ public class ProfileClient {
      *  Four Options: allUsers, friends, sentFriendRequests, receivedFriendRequests
      *  All invalid arguments will return null value
      */
-    public static ArrayList<Profile> getProfileList() {
+    public ArrayList<Profile> getProfileList() {
         PrintWriter writer;
         try {
             writer = new PrintWriter(socket.getOutputStream());
@@ -140,11 +140,13 @@ public class ProfileClient {
             if (socket.isConnected()) {
                 //System.out.println(username);
                 writer.println("getProfileList");
-                writer.println(username);
-                writer.println(password);
+                writer.println(this.username);
+                writer.println(this.password);
                 writer.flush();
-                ArrayList<Profile> allUsers = (ArrayList<Profile>) ois.readObject();
+                ArrayList<Profile> allUsers;
+                allUsers = (ArrayList<Profile>) ois.readObject();
                 //Works required: the user should be at the first place in this this list.
+                System.out.println(allUsers);
                 return allUsers;
             }
             else {
@@ -156,14 +158,14 @@ public class ProfileClient {
         return null;
     }
 
-    public static void sendFriendRequest(Socket socket, String friendUsername) throws IOException {
+    public void sendFriendRequest(Socket socket, String friendUsername) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         if (socket.isConnected()) {
             //System.out.println(username);
             writer.println("sendFriendRequest");
-            writer.println(username);
-            writer.println(password);
+            writer.println(this.username);
+            writer.println(this.password);
             writer.println(friendUsername);
             writer.flush();
             System.out.println(writer);
@@ -179,14 +181,14 @@ public class ProfileClient {
 
     }
 
-    public static void beFriend(Socket socket, String friendUsername, boolean accept) throws IOException {
+    public void beFriend(Socket socket, String friendUsername, boolean accept) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         if (socket.isConnected()) {
             //System.out.println(username);
             writer.println("beFriend");
-            writer.println(username);
-            writer.println(password);
+            writer.println(this.username);
+            writer.println(this.password);
             writer.println(friendUsername);
             if (accept)
                 writer.println("accept");
@@ -219,7 +221,7 @@ public class ProfileClient {
     }
 
     /**
-     * Find out a profile from the Arraylist given and construct a new profile
+     * Find out a profile from the Arraylist given and return
      */
     public static Profile getProfileFromList(ArrayList<Profile> profiles, String username) {
         for (Profile p : profiles) {
