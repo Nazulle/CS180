@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  *
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
- * @version April 30th, 2021
+ * @version April 28th, 2021
  */
 
 public class ProfileClient {
@@ -76,7 +76,7 @@ public class ProfileClient {
         }
     }
 
-    public void createAccount(Socket socket) throws IOException {
+    public boolean createAccount(Socket socket) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter writer = new PrintWriter(socket.getOutputStream());
         if (socket.isConnected()) {
@@ -86,14 +86,19 @@ public class ProfileClient {
             writer.println(this.password);
             writer.flush();
             String result = reader.readLine();
-            if (result.contains("success"))
+            if (result.contains("success")) {
                 JOptionPane.showMessageDialog(null, "Created Account Successfully", "Profile App", JOptionPane.INFORMATION_MESSAGE);
-            else
+                return true;
+            }
+            else {
                 JOptionPane.showMessageDialog(null, "Occupied Username! Try something else.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
         }
-        else
+        else {
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
-
+            return false;
+        }
     }
 
     public void setProfile(Socket socket, String name, String age, String phone, String email, String likes,
@@ -223,6 +228,26 @@ public class ProfileClient {
                 JOptionPane.showMessageDialog(null, "You two are now not friends.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
                 JOptionPane.showMessageDialog(null, "Cannot find profile of this user in your friend list.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    public void removeProfile(Socket socket) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        if (socket.isConnected()) {
+            //System.out.println(username);
+            writer.println("removeProfile");
+            writer.println(this.username);
+            writer.println(this.password);
+            writer.flush();
+            String result = reader.readLine();
+            if (result.contains("success"))
+                JOptionPane.showMessageDialog(null, "Account Deleted", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "There was an error while deleting your account.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
