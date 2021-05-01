@@ -63,7 +63,13 @@ public class ProfileCreation extends JComponent implements Runnable {
 
 
             }
-            
+            if (e.getSource() == deleteButton) {
+                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?", "Profile", JOptionPane.YES_NO_OPTION);
+
+                if (reply == JOptionPane.YES_OPTION) {
+                    
+                }
+            }
         }
     };
     public void run() {
@@ -182,8 +188,6 @@ public class ProfileCreation extends JComponent implements Runnable {
         deleteButton.setLocation(350, 500);
         c.add(deleteButton);
         
-        
-
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new ProfileCreation());
