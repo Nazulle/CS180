@@ -152,6 +152,7 @@ public class MergedGUI extends JComponent implements Runnable {
                     if (b) {
                         loginFrame.dispose();
                         isLogin = true;
+                        update();
                         setComboBox();
                         mainFrame.setVisible(true);
                     }
@@ -238,6 +239,7 @@ public class MergedGUI extends JComponent implements Runnable {
                     if (accountFrame != null)
                         accountFrame.dispose();
                     pfFrame.setVisible(false);
+                    update();
                     setComboBox();
                     mainFrame.setVisible(true);
                 }
@@ -595,7 +597,7 @@ public class MergedGUI extends JComponent implements Runnable {
         }
 
         Timer timer = new Timer();
-        timer.schedule(GUITimerTask(), 0, 2000);
+        timer.schedule(GUITimerTask(), 0, 5000);
 
     }
     public static void main(String[] args) {
@@ -614,10 +616,6 @@ public class MergedGUI extends JComponent implements Runnable {
             aboutMe.setText("About me!: " + p.getAboutMe());
             likes.setText("Likes: " + p.getLikes());
             dislikes.setText("Dislikes: " + p.getDislikes());
-            friendButton.removeAllItems();
-            for (Profile friend : p.getFriends()) {
-                friendButton.addItem(friend.getName() + " <" + friend.getUsername() + ">");
-            }
             profileGUIFrame.setVisible(true);
         }
     }
@@ -698,7 +696,10 @@ public class MergedGUI extends JComponent implements Runnable {
         } else {
             sendFriendRequest.setVisible(true);
         }
-        //System.out.println(currentProfile.getUsername());
+        friendButton.removeAllItems();
+        for (Profile friend : profile.getFriends()) {
+            friendButton.addItem(friend.getName() + " <" + friend.getUsername() + ">");
+        }
     }
 
     public void update() {
@@ -707,7 +708,10 @@ public class MergedGUI extends JComponent implements Runnable {
             //System.out.println(allUsers.toString());
             myProfile = ProfileClient.getProfileFromList(allUsers, profileClient.username);
             setComboBox();
-            setCurrentProfile(currentProfile);
+            if (currentProfile != null) {
+                currentProfile = ProfileClient.getProfileFromList(allUsers, currentProfile.getUsername());
+                setCurrentProfile(currentProfile);
+            }
         }
     }
 
