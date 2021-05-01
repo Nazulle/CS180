@@ -1,1 +1,4 @@
-saketh,20,45666,blank@purdue.edu,love pizza and chipotle,hate soda,from cali and like to chill
+saketh/20/45666/blank@purdue.edu/love pizza and chipotle/hate soda/from cali and like to chill
+mino/21/404/@/12/12/12
+Abby/ / / / / /
+Gabe/ / / / / /
