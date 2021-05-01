@@ -1,13 +1,3 @@
-/**
- * MergedGUI
- *
- * A GUI for the social media app.
- *
- * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu), Abby (put your full name and email here)
- * merged and edited by Minwoo Jung (jung361@purdue.edu)
- * @version April 30th
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,6 +6,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+/**
+ * MergedGUI
+ *
+ * A GUI for the social media app.
+ *
+ * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu), Abby (alfarrel@purdue.edu)
+ * merged and edited by Minwoo Jung (jung361@purdue.edu)
+ * @version April 30th
+ */
 
 public class MergedGUI extends JComponent implements Runnable {
     Socket socket;
@@ -204,7 +204,9 @@ public class MergedGUI extends JComponent implements Runnable {
                 profileClient.password = newPassInput;
 
                 if (newUserInput.length() < 6 || newPassInput.length() < 6 || newUserInput.equals("") || newPassInput.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Invalid username or password specifications. Try again!", "Create Account", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "Invalid username or password specifications. Try again!", "Create Account",
+                            JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
                         if(profileClient.createAccount(socket)) {
@@ -228,7 +230,9 @@ public class MergedGUI extends JComponent implements Runnable {
 
                 if (sentName.equals("") || sentAge.equals("") || sentPhone.equals("") || sentEmail.equals("")
                         || sentLikes.equals("") || sentDislikes.equals("") || sentAboutMe.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Make sure to fill all specifed fields. Try again!", "Profile Creation", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "Make sure to fill all specifed fields. Try again!", "Profile Creation",
+                            JOptionPane.ERROR_MESSAGE);
                 }
 
                 // retrieve filled in profile information from text fields and send to client/server for that account
@@ -247,7 +251,8 @@ public class MergedGUI extends JComponent implements Runnable {
             }
 
             if (e.getSource() == deleteButton) {
-                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?", "Profile", JOptionPane.YES_NO_OPTION);
+                int reply = JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to delete your profile?", "Profile", JOptionPane.YES_NO_OPTION);
 
                 if (reply == JOptionPane.YES_OPTION) {
                     try {
@@ -285,7 +290,8 @@ public class MergedGUI extends JComponent implements Runnable {
                     profileGUIFrame.dispose();
                     openProfile(currentProfile);
                 } else
-                    JOptionPane.showMessageDialog(null, "No User Selected!", "Profile Creation", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No User Selected!",
+                            "Profile Creation", JOptionPane.ERROR_MESSAGE);
             }
             if (e.getSource() == goBack) {
                 update();
@@ -518,7 +524,7 @@ public class MergedGUI extends JComponent implements Runnable {
         currentProfileName = new JLabel("<html><p>Name Here</p><p></p></html>");
         panelTop.add(currentProfileName);
 
-        unFriend = new JButton("unfriend");
+        unFriend = new JButton("Unfriend");
         unFriend.addActionListener(actionListener);
         panelTop.add(unFriend);
         acceptFriend = new JButton("Accept");
@@ -579,7 +585,7 @@ public class MergedGUI extends JComponent implements Runnable {
         profileGUIFrame.add(panelBottom, BorderLayout.SOUTH);
         profileGUIFrame.add(panelTop, BorderLayout.NORTH);
 
-        profileGUIFrame.setSize(400, 350);
+        profileGUIFrame.setSize(650, 400);
         profileGUIFrame.setLocationRelativeTo(null);
         profileGUIFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         profileGUIFrame.setVisible(false);
@@ -613,7 +619,7 @@ public class MergedGUI extends JComponent implements Runnable {
             currentProfileName.setText(p.getName());
             email.setText("Email: " + p.getEmail());
             phoneNum.setText("Phone: " + p.getPhone());
-            aboutMe.setText("About me!: " + p.getAboutMe());
+            aboutMe.setText("About me: " + p.getAboutMe());
             likes.setText("Likes: " + p.getLikes());
             dislikes.setText("Dislikes: " + p.getDislikes());
             profileGUIFrame.setVisible(true);
@@ -634,7 +640,7 @@ public class MergedGUI extends JComponent implements Runnable {
         pfFrame.setVisible(true);
     }
 
-    //setup comboBox when logined or information changed
+    //setup comboBox when logged in or information changed
     public void setComboBox() {
         try {
             String username = "Nothing for now";
