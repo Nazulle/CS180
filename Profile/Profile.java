@@ -135,7 +135,7 @@ public class Profile implements Serializable{
      */
     @Override
     public String toString() {
-        return String.format("%s %s %s %s", username, name,  email, phone, likes);
+        return String.format("%s %s %s %s %s %s %s %s", username, name, age, email, phone, likes, dislikes, aboutMe);
     }
 
     /**
