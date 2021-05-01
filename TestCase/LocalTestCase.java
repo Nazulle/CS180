@@ -1,5 +1,5 @@
 import org.junit.After;
-import org.junit.Assert;
+import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -13,7 +13,7 @@ import org.junit.*;
 import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
-class RunLocalTestTwo {
+public class RunLocalTestTwo {
     public static void main(String[] args) {
         Result result = JUnitCore.runClasses(TestCase.class);
         if (result.wasSuccessful()) {
@@ -25,19 +25,12 @@ class RunLocalTestTwo {
         }
     }
 	
-    class TestCase {
-    	//Supposed to be public static class TestCase
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-	
+    public static class TestCase {
 	@Test
     public void profileClassDeclarationTest() {
         Class<?> clazz;
         String className;
-        int modifiers;
+        //int modifiers;
         Field testField;
         
         clazz = Profile.class;
@@ -131,6 +124,10 @@ class RunLocalTestTwo {
         }
 	
 	public void profileConstructorTest() {
+        String className = "Profile";
+        
+        className = "Profile";
+		try {
         Profile obj = new Profile("username", "password", "name", "age",
         		"phone", "email", "likes", "dislikes", "aboutMe");
         assertEquals("username", obj.getUsername());
@@ -141,15 +138,57 @@ class RunLocalTestTwo {
         assertEquals("likes", obj.getLikes());
         assertEquals("dislikes", obj.getDislikes());
         assertEquals("aboutMe", obj.getAboutMe());
+		} catch (Exception e) {
+			Assert.fail(className + "'s big constructor doesn't work!");
+		}
         
+		try {
         Profile obj2 = new Profile("usernameOne", "passwordOne");
         assertEquals("usernameOne", obj2.getUsername());
         assertEquals("passwordOne", obj2.getPassword());
+		} catch (Exception e) {
+			Assert.fail(className + "'s small constructor doesn't work!");
+		}
 	}
 	
-	public void profileSetterTest() {
-		Profile obj = new Profile("username", "password", "name", "age",
-        		"phone", "email", "likes", "dislikes", "aboutMe");
+	public void profileSetterTestCorrect() {
+		try {
+		Profile obj = new Profile(0, 0, 0, 0, 0, 0 ,0, 0, 0);
+		
+		obj.setUsername(0);
+        assertEquals(0, obj.getUsername());
+        
+		obj.setPassword(0);
+        assertEquals("one", obj.getPassword());
+        
+		obj.setName(0);
+        assertEquals(0, obj.getName());
+        
+		obj.setAge(0);
+        assertEquals(0, obj.getAge());
+        
+		obj.setPhone(0);
+        assertEquals("one", obj.getPhone());
+        
+		obj.setEmail("one");
+        assertEquals("one", obj.getEmail());
+        
+		obj.setLikes("one");
+        assertEquals("one", obj.getLikes());
+        
+		obj.setDislikes("one");
+        assertEquals("one", obj.getDislikes());
+        
+		obj.setAboutMe("one");
+        assertEquals("one", obj.getAboutMe());
+		} catch (Exception e) {
+			Assert.fail("Profile's getter methods or contructor declaration doesn't work!");
+		}
+	}
+	
+	public void profileSetterTestIncorrect() {
+		try {
+		Profile obj = new Profile("phone", "email", "likes", "dislikes", "aboutMe");
 		
 		obj.setUsername("one");
         assertEquals("one", obj.getUsername());
@@ -177,6 +216,20 @@ class RunLocalTestTwo {
         
 		obj.setAboutMe("one");
         assertEquals("one", obj.getAboutMe());
+		} catch (Exception e) {
+			return;
+		}
+	}
+	
+	
+	public void testToString() {
+		try {
+		 Profile obj = new Profile("username", "password", "name", "age",
+	        		"phone", "email", "likes", "dislikes", "aboutMe");
+		 assertEquals("username name email phone", obj.toString());
+		} catch (Exception e) {
+			Assert.fail("Profile's toString method or contructor declaration doesn't work!");
+		}
 	}
 	}
 }
