@@ -14,6 +14,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MergedGUI extends JComponent implements Runnable {
     Socket socket;
@@ -117,6 +119,9 @@ public class MergedGUI extends JComponent implements Runnable {
     boolean areTheyYourFriend;
     boolean theySentYouFriendRequest;
     boolean youSentFriendRequest;
+
+
+    boolean isLogin = false;
     ItemListener ItemListener = new ItemListener() {
         public void itemStateChanged(ItemEvent e) {
             if (e.getSource() == friendButton) {
@@ -146,6 +151,7 @@ public class MergedGUI extends JComponent implements Runnable {
                     boolean b = profileClient.sendLoginInfo(socket);
                     if (b) {
                         loginFrame.dispose();
+                        isLogin = true;
                         setComboBox();
                         mainFrame.setVisible(true);
                     }
@@ -200,8 +206,10 @@ public class MergedGUI extends JComponent implements Runnable {
                     JOptionPane.showMessageDialog(null, "Invalid username or password specifications. Try again!", "Create Account", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
-                        if(profileClient.createAccount(socket))
+                        if(profileClient.createAccount(socket)) {
                             pfFrame.setVisible(true);
+                            isLogin = true;
+                        }
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -585,6 +593,10 @@ public class MergedGUI extends JComponent implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Timer timer = new Timer();
+        timer.schedule(GUITimerTask(), 0, 2000);
+
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new MergedGUI());
@@ -627,25 +639,31 @@ public class MergedGUI extends JComponent implements Runnable {
     //setup comboBox when logined or information changed
     public void setComboBox() {
         try {
-            update();
+            String username = "Nothing for now";
+            if (comboBox.getSelectedItem() != null) {
+                String selectedItem = (String) comboBox.getSelectedItem();
+                String[] s = selectedItem.split("<");
+                username = s[1].substring(0,s[1].length() - 1);
+            }
             comboBox.removeAllItems();
             testArray = ProfileClient.getNamesAndUsernames(allUsers);
             for (int i = 0; i < testArray.size(); i++) {
                 comboBox.addItem(testArray.get(i));
+                if (testArray.get(i).contains(username)) {
+                    comboBox.setSelectedItem(testArray.get(i));
+                }
             }
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null,
-                    "Error: User list not found from server.", "Error", JOptionPane.QUESTION_MESSAGE);
 
         }
     }
+
 
     /**
      * Setting up the profile to view.
      * Find out if the profile is friend or not and set the booleans.
      */
     public void setCurrentProfile(Profile profile) {
-        update();
         //System.out.println(myProfile.getReceivedFriendRequest().toString());
         //System.out.println(profile.toString());
         //System.out.println(myProfile.getReceivedFriendRequest().contains(profile));
@@ -680,13 +698,27 @@ public class MergedGUI extends JComponent implements Runnable {
         } else {
             sendFriendRequest.setVisible(true);
         }
-        System.out.println(currentProfile.getUsername());
+        //System.out.println(currentProfile.getUsername());
     }
 
     public void update() {
-        allUsers = profileClient.getProfileList();
-        //System.out.println(allUsers.toString());
-        myProfile = ProfileClient.getProfileFromList(allUsers, profileClient.username);
+        if (isLogin) {
+            allUsers = profileClient.getProfileList();
+            //System.out.println(allUsers.toString());
+            myProfile = ProfileClient.getProfileFromList(allUsers, profileClient.username);
+            setComboBox();
+            setCurrentProfile(currentProfile);
+        }
+    }
+
+    public TimerTask GUITimerTask() {
+        TimerTask tt = new TimerTask() {
+            @Override
+            public void run() {
+                update();
+            }
+        };
+        return tt;
     }
 
 }
