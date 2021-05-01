@@ -54,6 +54,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
     JFrame pfFrame;
     JButton submitButton;
+    JButton deleteButton;
 
     JLabel titleScreen;
     JLabel name;
@@ -85,11 +86,9 @@ public class MergedGUI extends JComponent implements Runnable {
     JFrame mainFrame;
 
     JButton openButton;
-    JButton inputButton;
     JButton editButton;
 
     JComboBox<String> comboBox;
-    String profileName;
     ArrayList<String> testArray = new ArrayList<String>(); //if not working add: (Arrays.asList());
 
 
@@ -127,7 +126,7 @@ public class MergedGUI extends JComponent implements Runnable {
         }
     };
 
-    
+
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -201,8 +200,8 @@ public class MergedGUI extends JComponent implements Runnable {
                     JOptionPane.showMessageDialog(null, "Invalid username or password specifications. Try again!", "Create Account", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
-                        profileClient.createAccount(socket);
-                        pfFrame.setVisible(true);
+                        if(profileClient.createAccount(socket))
+                            pfFrame.setVisible(true);
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -235,6 +234,19 @@ public class MergedGUI extends JComponent implements Runnable {
                     mainFrame.setVisible(true);
                 }
 
+            }
+
+            if (e.getSource() == deleteButton) {
+                int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?", "Profile", JOptionPane.YES_NO_OPTION);
+
+                if (reply == JOptionPane.YES_OPTION) {
+                    try {
+                        profileClient.removeProfile(socket);
+                        System.exit(0);
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
             }
 
             //Buttons in GUIMain
@@ -452,6 +464,13 @@ public class MergedGUI extends JComponent implements Runnable {
         c.add(submitButton);
         pfFrame.setVisible(false);
 
+        deleteButton = new JButton("Delete!");
+        deleteButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        deleteButton.setSize(100, 50);
+        deleteButton.setLocation(350, 500);
+        deleteButton.addActionListener(actionListener);
+        c.add(deleteButton);
+
 
         //Frame of GUIMain
         mainFrame = new JFrame("Main Menu");
@@ -604,7 +623,7 @@ public class MergedGUI extends JComponent implements Runnable {
         profAboutMe.setText(myProfile.getAboutMe());
         pfFrame.setVisible(true);
     }
-    
+
     //setup comboBox when logined or information changed
     public void setComboBox() {
         try {
