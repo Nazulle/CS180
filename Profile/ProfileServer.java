@@ -8,12 +8,12 @@ import java.util.ArrayList;
  * This class consists of a server used to make Profiles and accounts for a social media app.
  *	
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
- * @version April 20th, 2021
+ * @version April 30th, 2021
  */
 
  public class ProfileServer implements Runnable {
     Socket csocket;
-    // initilization
+    // initialization
     static ArrayList<Profile> profiles = new ArrayList<>();
     static Authentication profilesList;
     static FileIO fileIO = new FileIO();
@@ -27,6 +27,7 @@ import java.util.ArrayList;
         fileIO.readAccountFile();
         profiles = fileIO.readProfileFile();
         profilesList = new Authentication(profiles);
+        friends = fileIO.readFriendListFile();
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
         while (true) {
@@ -157,6 +158,7 @@ import java.util.ArrayList;
 
                 fileIO.writeAccountFile(profilesList.getProfiles());
                 fileIO.writeProfileFile(profilesList.getProfiles());
+                fileIO.writeFriendListFile(profilesList.getProfiles());
 
                 } catch (NullPointerException n) {
                     System.out.println("User has requested nothing for now");
