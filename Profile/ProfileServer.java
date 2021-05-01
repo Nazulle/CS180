@@ -156,6 +156,12 @@ public class ProfileServer implements Runnable {
                         writer.flush();
                     }
 
+                    if (function.equals("removeProfile")) {
+                        profilesList.removeProfile(username);
+                        writer.println("success");
+                        writer.flush();
+                    }
+
                     fileIO.writeAccountFile(profilesList.getProfiles());
                     fileIO.writeProfileFile(profilesList.getProfiles());
                     fileIO.writeFriendListFile(profilesList.getProfiles());
