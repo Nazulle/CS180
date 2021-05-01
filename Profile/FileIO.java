@@ -10,30 +10,31 @@ public class FileIO {
     String [] s;
     ArrayList <String> userNameList;
     ArrayList <String> passWordList;
-    ArrayList <String> userProfilesList;
+    ArrayList<Profile> userProfilesList;
 
-    public void writeAccountFile(String username, String password) {
+    public void writeAccountFile(ArrayList<Profile> profiles) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("accountsFileName.txt")))) {
-
-            out.write(username + "," password + "\n");
-
+            for (Profile p : profiles) {
+                out.write(p.getUsername() + "," + p.getPassword() + "\n");
+            }
         } catch (IOException a) {
             a.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         FileIO f = new FileIO();
         f.readAccountFile();
+        f.readProfileFile();
     }
     public void readAccountFile() {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("accountsFileName.txt"));
 
             registeredAcc = new ArrayList<String>();
-            
+
             String line;
-        
+
             while ((line = bfr.readLine()) != null) {
                 registeredAcc.add(line);
             }
@@ -50,33 +51,34 @@ public class FileIO {
             passWordList.add(s[1]);
 
         }
-        System.out.println(Arrays.toString(userNameList.toArray()));
-        System.out.println(Arrays.toString(passWordList.toArray()));
+        //System.out.println(Arrays.toString(userNameList.toArray()));
+        //System.out.println(Arrays.toString(passWordList.toArray()));
 
     }
-    
+
     public void writeProfileFile(ArrayList<Profile> userProfiles) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("profilesFileName.txt")))) {
-            for (int i = 0; i <= userProfiles.getSize(); i++) {
-                out.write(userProfiles.get(i).getName() + "|" + userProfiles.get(i).getPhone() + "|" + userProfiles.get(i).getEmail() +  "|" +
-                userProfiles.get(i).getLikes() + "|" + userProfiles.get(i).getDislikes() + "|" + userProfiles.get(i).getAboutMe() + "\n");
+            for (Profile p : userProfiles) {
+                out.write(p.getName() + "/" +p.getAge() + "/" + p.getPhone() + "/" + p.getEmail() +  "/" +
+                        p.getLikes() + "/" + p.getDislikes() + "/" + p.getAboutMe() + "\n");
             }
         } catch (IOException c) {
             c.printStackTrace();
         }
 
     }
-    
-    public void readProfileFile() {
+
+    public ArrayList<Profile> readProfileFile() {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("profilesFileName.txt"));
 
             registeredProf = new ArrayList<String>();
-            
+
             String line;
-        
+
             while ((line = bfr.readLine()) != null) {
                 registeredProf.add(line);
+                //System.out.println(registeredProf.toString());
             }
         } catch (IOException d) {
             d.printStackTrace();
@@ -85,11 +87,13 @@ public class FileIO {
         userProfilesList = new ArrayList<Profile>();
 
         for (int i = 0; i < registeredProf.size(); i++) {
-            pf = registeredAcc.get(i).split("|");
+            pf = registeredProf.get(i).split("/");
 
             Profile n = new Profile(userNameList.get(i), passWordList.get(i), pf[0], pf[1], pf[2], pf[3], pf[4], pf[5], pf[6]);
             userProfilesList.add(n);
 
         }
+        return userProfilesList;
+        //System.out.println(userProfilesList.toString());
     }
 }
