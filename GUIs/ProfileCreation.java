@@ -15,6 +15,7 @@ public class ProfileCreation extends JComponent implements Runnable {
     // list of variables that will be implemented
 
     JButton submitButton;
+    JButton deleteButton;
 
     JLabel titleScreen;
     JLabel name;
@@ -172,7 +173,15 @@ public class ProfileCreation extends JComponent implements Runnable {
         submitButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
         submitButton.setSize(100, 50);
         submitButton.setLocation(200, 500);
-        c.add(submitButton);    
+        c.add(submitButton);  
+        
+        deleteButton = new JButton("Delete!");
+        deleteButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        deleteButton.setSize(100, 50);
+        deleteButton.setLocation(300, 500);
+        c.add(deleteButton);
+        
+        
 
     }
     public static void main(String[] args) {
