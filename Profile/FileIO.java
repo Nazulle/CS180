@@ -6,10 +6,13 @@ public class FileIO {
 
     ArrayList<String> registeredAcc;
     ArrayList<String> registeredProf;
+    ArrayList<String> registeredFr;
     String [] pf;
+    String [] fr;
     String [] s;
     ArrayList <String> userNameList;
     ArrayList <String> passWordList;
+    ArrayList <String> userFriendsList;
     ArrayList<Profile> userProfilesList;
 
     public void writeAccountFile(ArrayList<Profile> profiles) {
@@ -30,9 +33,7 @@ public class FileIO {
     public void readAccountFile() {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("accountsFileName.txt"));
-
             registeredAcc = new ArrayList<String>();
-
             String line;
 
             while ((line = bfr.readLine()) != null) {
@@ -71,9 +72,7 @@ public class FileIO {
     public ArrayList<Profile> readProfileFile() {
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("profilesFileName.txt"));
-
             registeredProf = new ArrayList<String>();
-
             String line;
 
             while ((line = bfr.readLine()) != null) {
@@ -95,5 +94,39 @@ public class FileIO {
         }
         return userProfilesList;
         //System.out.println(userProfilesList.toString());
+    }
+
+    public void writeFriendListFile(ArrayList<Profile> friendsList) {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("friendsListFileName.txt")))) {
+            for (Profile p : friendsList) {
+                out.write(p.getName() + "," + "\n");
+            }
+        } catch (IOException d) {
+            d.printStackTrace();
+        }
+    }
+
+    public void readFriendListFile() {
+        try {
+            BufferedReader bfr = new BufferedReader(new FileReader("friendsListFileName.txt"));
+            registeredFr = new ArrayList<String>();
+            String line;
+
+            while ((line = bfr.readLine()) != null) {
+                registeredFr.add(line);
+            }
+        } catch (IOException d) {
+            d.printStackTrace();
+        }
+        // this is the arraylist that has all the list of friends for a particular user.
+        userFriendsList = new ArrayList<String>();
+
+        for (int i = 0; i < registeredFr.size(); i++) {
+            fr = registeredFr.get(i).split(",");
+
+            userFriendsList = new ArrayList<String>(Arrays.asList(fr));
+            userFriendsList.addAll(Arrays.asList(fr));
+
+        }
     }
 }
