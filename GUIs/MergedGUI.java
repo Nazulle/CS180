@@ -505,7 +505,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
 
         JPanel profilePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 15));
-        ImageIcon icon = new ImageIcon("C:\\Users\\14079\\eclipse-workspace\\CS180\\src\\Project5\\nopic_1921.jpg");
+        ImageIcon icon = new ImageIcon("nopic_1921.jpg");
         JLabel picture = new JLabel(icon);
         profilePanel.add(picture, BorderLayout.CENTER);
 
