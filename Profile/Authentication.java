@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * Authentication Class will be the ArrayList of Profiles in the server.
  *  @author Minwoo Jung - jung361@purdue.edu, Saketh Ayyalasomayajula - sayyala@purdue.edu
- *  @version April 29th
+ *  @version April 22th
  */
 
 public class Authentication {
@@ -60,12 +60,18 @@ public class Authentication {
         return null;
     }
 
-    public void removeProfile(String username, String password) {
+    public void removeProfile(String username) {
         for (Profile p : profiles) {
             if (p.getUsername().equals(username)) {
+                for (Profile pf : profiles) {
+                    if (pf.getFriends().contains(p)) {
+                        pf.getFriends().remove(p);
+                    }
+                }
                 profiles.remove(p);
             }
         }
+
     }
 
     public ArrayList<Profile> getProfiles() {
@@ -75,5 +81,20 @@ public class Authentication {
     @Override
     public String toString() {
         return profiles.toString();
+    }
+
+    public static void main(String[] args) {
+        Profile p1 = new Profile("mino","123456");
+        Profile p2 = new Profile("mino2","123456");
+        ArrayList<Profile> profiles = new ArrayList<>();
+        profiles.add(p1);
+        profiles.add(p2);
+        Authentication list = new Authentication(profiles);
+        list.getProfile("mino").getFriends().add(p2);
+        list.getProfile("mino2").getFriends().add(p1);
+        System.out.println(list.getProfile("mino").getFriends());
+        System.out.println(list.getProfile("mino2").getFriends());
+        list.removeProfile("mino");
+        System.out.println(list.getProfile("mino2").getFriends());
     }
 }
