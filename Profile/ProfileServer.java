@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * This class consists of a server used to make Profiles and accounts for a social media app.
  *	
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
- * @version April 30th, 2021
+ * @version April 20th, 2021
  */
 
  public class ProfileServer implements Runnable {
@@ -137,6 +137,18 @@ import java.util.ArrayList;
                                 p.removeFriendRequest(profilesList.getProfile(friendUsername));
                                 writer.println("remove");
                             }
+                        } catch (ProfileNotFoundException e) {
+                            writer.println("failed");
+                        }
+                        writer.flush();
+                    }
+
+                    if (function.equals("unFriend")) {
+                        Profile p = profilesList.getProfile(username);
+                        String friendUsername = reader.readLine();
+                        try {
+                            p.unFriend(profilesList.getProfile(friendUsername));
+                            writer.println("success");
                         } catch (ProfileNotFoundException e) {
                             writer.println("failed");
                         }
