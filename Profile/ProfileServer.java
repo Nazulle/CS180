@@ -1,20 +1,22 @@
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+
 /**
  * Profile Server
  *
  * This class consists of a server used to make Profiles and accounts for a social media app.
  *	
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
- * @version April 20th, 2021
+ * @version April 30th, 2021
  */
 
  public class ProfileServer implements Runnable {
     Socket csocket;
     // initilization
     static ArrayList<Profile> profiles = new ArrayList<>();
-    static Authentication profilesList = new Authentication(profiles);
+    static Authentication profilesList;
+    static FileIO fileIO = new FileIO();
 
     public ProfileServer(Socket csocket) {
         this.csocket = csocket;
@@ -22,11 +24,11 @@ import java.util.ArrayList;
 
 
     public static void main(String[] args) throws IOException {
-
-        boolean serverChek = true;
+        fileIO.readAccountFile();
+        profiles = fileIO.readProfileFile();
+        profilesList = new Authentication(profiles);
         int port = 4242;
         ServerSocket serverSocket = new ServerSocket(port);
-
         while (true) {
             Socket socket = serverSocket.accept();
             System.out.println("A Client connected");
@@ -42,7 +44,7 @@ import java.util.ArrayList;
             InputStreamReader isr = new InputStreamReader(csocket.getInputStream());
             BufferedReader reader = new BufferedReader(isr);
             PrintWriter writer = new PrintWriter(csocket.getOutputStream());
-            ObjectOutputStream ois = new ObjectOutputStream(csocket.getOutputStream());
+            ObjectOutputStream oos = new ObjectOutputStream(csocket.getOutputStream());
 
             do {
                 // authentication class code
@@ -93,6 +95,7 @@ import java.util.ArrayList;
                             p.setLikes(likes);
                             p.setDislikes(dislikes);
                             p.setAboutMe(aboutMe);
+                            System.out.println(profilesList.getProfiles());
                             writer.println("Profile successfully created. " + p.getName());
                         }
                         else
@@ -101,8 +104,12 @@ import java.util.ArrayList;
                     }
 
                     if (function.equals("getProfileList")) {
-                        ois.writeObject(profilesList.getProfiles());
-                        ois.flush();
+                        oos.writeObject(profilesList.getProfiles());
+                        System.out.println(profilesList.getProfiles());
+                        System.out.println(oos.toString());
+                        oos.flush();
+                        oos.reset();
+                        System.out.println(oos.toString());
                     }
 
                     if (function.equals("sendFriendRequest")) {
@@ -136,10 +143,11 @@ import java.util.ArrayList;
                         writer.flush();
                     }
 
-
+                fileIO.writeAccountFile(profilesList.getProfiles());
+                fileIO.writeProfileFile(profilesList.getProfiles());
 
                 } catch (NullPointerException n) {
-                    System.out.println("No Users connected now");
+                    System.out.println("User has requested nothing for now");
                     break;
                 }
             } while (true);
