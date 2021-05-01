@@ -8,11 +8,9 @@ public class FileIO {
     ArrayList<String> registeredProf;
     ArrayList<String> registeredFr;
     String [] pf;
-    String [] fr;
     String [] s;
     ArrayList <String> userNameList;
     ArrayList <String> passWordList;
-    ArrayList <String> userFriendsList;
     ArrayList<Profile> userProfilesList;
 
     public void writeAccountFile(ArrayList<Profile> profiles) {
@@ -99,7 +97,10 @@ public class FileIO {
     public void writeFriendListFile(ArrayList<Profile> friendsList) {
         try (BufferedWriter out = new BufferedWriter(new FileWriter(new File("friendsListFileName.txt")))) {
             for (Profile p : friendsList) {
-                out.write(p.getName() + "," + "\n");
+                for (Profile friend : p.getFriends()) {
+                    out.write(friend.getUsername() + ",");
+                }
+                out.newLine();
             }
         } catch (IOException d) {
             d.printStackTrace();
@@ -119,14 +120,14 @@ public class FileIO {
             d.printStackTrace();
         }
         // this is the arraylist that has all the list of friends for a particular user.
-        userFriendsList = new ArrayList<String>();
-
         for (int i = 0; i < registeredFr.size(); i++) {
-            fr = registeredFr.get(i).split(",");
-
-            userFriendsList = new ArrayList<String>(Arrays.asList(fr));
-            userFriendsList.addAll(Arrays.asList(fr));
-
+            String[] fr = registeredFr.get(i).split(",");
+            for (String friendUsername : fr) {
+                for (Profile p: userProfilesList) {
+                    if (p.getUsername().equals(friendUsername))
+                        userProfilesList.get(i).getFriends().add(p);
+                }
+            }
         }
     }
 }
