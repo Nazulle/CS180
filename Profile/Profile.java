@@ -135,7 +135,7 @@ public class Profile implements Serializable{
      */
     @Override
     public String toString() {
-        return String.format("%s %s %s %s", username, name, email, phone);
+        return String.format("%s %s %s %s", username, name,  email, phone, likes);
     }
 
     /**
@@ -188,6 +188,18 @@ public class Profile implements Serializable{
         try {
             this.receivedFriendRequest.remove(profile);
             profile.getSentFriendRequest().remove(this);
+        } catch (NullPointerException n) {
+            throw new ProfileNotFoundException();
+        }
+    }
+
+    /**
+     * remove friend from each other's friend list
+     */
+    public void unFriend(Profile profile) throws ProfileNotFoundException {
+        try {
+            this.getFriends().remove(profile);
+            profile.getFriends().remove(this);
         } catch (NullPointerException n) {
             throw new ProfileNotFoundException();
         }
