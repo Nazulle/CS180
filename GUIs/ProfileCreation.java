@@ -63,6 +63,7 @@ public class ProfileCreation extends JComponent implements Runnable {
 
 
             }
+            
         }
     };
     public void run() {
@@ -178,7 +179,7 @@ public class ProfileCreation extends JComponent implements Runnable {
         deleteButton = new JButton("Delete!");
         deleteButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
         deleteButton.setSize(100, 50);
-        deleteButton.setLocation(300, 500);
+        deleteButton.setLocation(350, 500);
         c.add(deleteButton);
         
         
