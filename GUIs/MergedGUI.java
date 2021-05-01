@@ -308,7 +308,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
     public void run() {
         // This is the first panel that pops up when the program is run
-        loginFrame = new JFrame("Login Menu");
+        loginFrame = new JFrame("Parallel");
         Container loginContent = loginFrame.getContentPane();
         loginContent.setLayout(new BorderLayout());
         //loginContent.add(BorderLayout.CENTER);
