@@ -127,8 +127,7 @@ public class MergedGUI extends JComponent implements Runnable {
         }
     };
 
-
-
+    
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -250,9 +249,6 @@ public class MergedGUI extends JComponent implements Runnable {
             if (e.getSource() == editButton) {
                 //String user = (String)comboBox.getSelectedItem();
                 editProfile();
-            }
-            if (e.getSource() == inputButton) {
-                inputProfile();
             }
 
             //Buttons in profileGUI
@@ -472,16 +468,12 @@ public class MergedGUI extends JComponent implements Runnable {
         editButton = new JButton("Edit Your Profile");
         editButton.addActionListener(actionListener);
         panel.add(editButton);
-
-        inputButton = new JButton("Import Profile");
-        inputButton.addActionListener(actionListener);
-        panel.add(inputButton);
-        mainContent.add(panel, BorderLayout.SOUTH);
+        mainContent.add(panel, BorderLayout.SOUTH); //buttons
 
 
         mainContent.add(comboBox, BorderLayout.NORTH);
 
-        mainFrame.setSize(400, 250);
+        mainFrame.setSize(600, 250);
         mainFrame.setLocationRelativeTo(null);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setVisible(false);
@@ -612,15 +604,7 @@ public class MergedGUI extends JComponent implements Runnable {
         profAboutMe.setText(myProfile.getAboutMe());
         pfFrame.setVisible(true);
     }
-
-    public void inputProfile() { //***Use for appending new profiles to main menu***
-        profileName = JOptionPane.showInputDialog(null,
-                "What is the file name? (ex: username.csv)", "File Name", JOptionPane.QUESTION_MESSAGE);
-        testArray.add(profileName);
-        comboBox.addItem(profileName);
-        repaint();
-    }
-
+    
     //setup comboBox when logined or information changed
     public void setComboBox() {
         try {
