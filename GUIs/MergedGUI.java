@@ -3,9 +3,9 @@
  *
  * A GUI for the social media app.
  *
- * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu),
+ * @author Saketh Ayyalasomayajula (sayyala@purdue.edu), Gabriel Segura (gsegura@purdue.edu), Abby (put your full name and email here)
  * merged and edited by Minwoo Jung (jung361@purdue.edu)
- * @version April 28th
+ * @version April 30th
  */
 
 import javax.swing.*;
@@ -117,6 +117,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
     boolean areTheyYourFriend;
     boolean theySentYouFriendRequest;
+    boolean youSentFriendRequest;
     ItemListener ItemListener = new ItemListener() {
         public void itemStateChanged(ItemEvent e) {
             if (e.getSource() == friendButton) {
@@ -269,6 +270,7 @@ public class MergedGUI extends JComponent implements Runnable {
                     JOptionPane.showMessageDialog(null, "No User Selected!", "Profile Creation", JOptionPane.ERROR_MESSAGE);
             }
             if (e.getSource() == goBack) {
+                update();
                 profileGUIFrame.dispose();
                 // Go back to main
             }
@@ -287,16 +289,21 @@ public class MergedGUI extends JComponent implements Runnable {
                 }
             }
             if (e.getSource() == unFriend) {
-                //DO-STUFF
+                try {
+                    profileClient.unFriend(socket, currentProfile.getUsername());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                update();
             }
             if (e.getSource() == sendFriendRequest) {
                 try {
                     //System.out.println("clicked");
                     profileClient.sendFriendRequest(socket, currentProfile.getUsername());
-                    sendFriendRequest.setText("Request Sent");
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
+                update();
 
             }
 
@@ -491,6 +498,7 @@ public class MergedGUI extends JComponent implements Runnable {
         panelTop.add(currentProfileName);
 
         unFriend = new JButton("unfriend");
+        unFriend.addActionListener(actionListener);
         panelTop.add(unFriend);
         acceptFriend = new JButton("Accept");
         acceptFriend.addActionListener(actionListener);
@@ -583,6 +591,7 @@ public class MergedGUI extends JComponent implements Runnable {
             aboutMe.setText("About me!: " + p.getAboutMe());
             likes.setText("Likes: " + p.getLikes());
             dislikes.setText("Dislikes: " + p.getDislikes());
+            friendButton.removeAllItems();
             for (Profile friend : p.getFriends()) {
                 friendButton.addItem(friend.getName() + " <" + friend.getUsername() + ">");
             }
@@ -633,14 +642,21 @@ public class MergedGUI extends JComponent implements Runnable {
      * Find out if the profile is friend or not and set the booleans.
      */
     public void setCurrentProfile(Profile profile) {
+        update();
         //System.out.println(myProfile.getReceivedFriendRequest().toString());
         //System.out.println(profile.toString());
         //System.out.println(myProfile.getReceivedFriendRequest().contains(profile));
         this.currentProfile = profile;
+        areTheyYourFriend = false;
+        theySentYouFriendRequest = false;
+        youSentFriendRequest = false;
+
         if (myProfile.getFriends().contains(profile))
             areTheyYourFriend = true;
         if (myProfile.getReceivedFriendRequest().contains(profile))
             theySentYouFriendRequest = true;
+        if (myProfile.getSentFriendRequest().contains(profile))
+            youSentFriendRequest = true;
 
         sendFriendRequest.setVisible(false);
         unFriend.setVisible(false);
@@ -652,11 +668,16 @@ public class MergedGUI extends JComponent implements Runnable {
         } else if (theySentYouFriendRequest) {
             acceptFriend.setVisible(true);
             denyFriend.setVisible(true);
-        } else if (myProfile.equals(profile)) {
+        } else if (youSentFriendRequest) {
+            sendFriendRequest.setVisible(true);
+            sendFriendRequest.setText("Request Sent");
+        }
+        else if (myProfile.equals(profile)) {
             //No buttons visible is this profile is my profile
         } else {
             sendFriendRequest.setVisible(true);
         }
+        System.out.println(currentProfile.getUsername());
     }
 
     public void update() {
