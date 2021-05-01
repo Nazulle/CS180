@@ -9,7 +9,7 @@ import javax.swing.*;
  *
  *
  * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
- * @version April 28th, 2021
+ * @version April 30th, 2021
  */
 
 public class ProfileClient {
@@ -146,7 +146,7 @@ public class ProfileClient {
                 ArrayList<Profile> allUsers;
                 allUsers = (ArrayList<Profile>) ois.readObject();
                 //Works required: the user should be at the first place in this this list.
-                System.out.println(allUsers);
+                //System.out.println(allUsers);
                 return allUsers;
             }
             else {
@@ -168,9 +168,9 @@ public class ProfileClient {
             writer.println(this.password);
             writer.println(friendUsername);
             writer.flush();
-            System.out.println(writer);
+            //System.out.println(writer);
             String result = reader.readLine();
-            System.out.println(result);
+            //System.out.println(result);
             if (result.contains("success"))
                 JOptionPane.showMessageDialog(null, "Friend request sent.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
@@ -202,6 +202,27 @@ public class ProfileClient {
                 JOptionPane.showMessageDialog(null, "The friend request now removed.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
                 JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+    public void unFriend(Socket socket, String friendUsername) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        PrintWriter writer = new PrintWriter(socket.getOutputStream());
+        if (socket.isConnected()) {
+            //System.out.println(username);
+            writer.println("unFriend");
+            writer.println(this.username);
+            writer.println(this.password);
+            writer.println(friendUsername);
+            writer.flush();
+            String result = reader.readLine();
+            if (result.contains("success"))
+                JOptionPane.showMessageDialog(null, "You two are now not friends.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            else
+                JOptionPane.showMessageDialog(null, "Cannot find profile of this user in your friend list.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
