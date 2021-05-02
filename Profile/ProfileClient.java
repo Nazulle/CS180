@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import javax.swing.*;
  * Project 5 Profile Client
  *
  *
- * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu), Gabriel Segura(gsegura@purdue.edu)
+ * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
  * @version April 28th, 2021
  */
 
@@ -35,6 +34,8 @@ public class ProfileClient {
 
                 }
             });
+
+
 
             // create/ edit account
 
@@ -64,8 +65,7 @@ public class ProfileClient {
                 return true;
             }
             else {
-                JOptionPane.showMessageDialog(null, "No matching Username or Password.",
-                        "Profile App", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "No matching Username or Password.", "Profile App", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         }
@@ -86,19 +86,16 @@ public class ProfileClient {
             writer.flush();
             String result = reader.readLine();
             if (result.contains("success")) {
-                JOptionPane.showMessageDialog(null, "Created Account Successfully",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Created Account Successfully", "Profile App", JOptionPane.INFORMATION_MESSAGE);
                 return true;
             }
             else {
-                JOptionPane.showMessageDialog(null, "Occupied Username! Try something else.",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Occupied Username! Try something else.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             }
         }
         else {
-            JOptionPane.showMessageDialog(null, "Not connected", "Profile App",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
     }
@@ -157,8 +154,7 @@ public class ProfileClient {
                 return allUsers;
             }
             else {
-                JOptionPane.showMessageDialog(null, "Not connected", "Profile App",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -180,15 +176,12 @@ public class ProfileClient {
             String result = reader.readLine();
             //System.out.println(result);
             if (result.contains("success"))
-                JOptionPane.showMessageDialog(null, "Friend request sent.", "Profile App",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Friend request sent.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
-            JOptionPane.showMessageDialog(null, "Not connected", "Profile App",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -208,18 +201,14 @@ public class ProfileClient {
             writer.flush();
             String result = reader.readLine();
             if (result.contains("accept"))
-                JOptionPane.showMessageDialog(null, "You two are now friends.",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You two are now friends.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else if (result.contains("remove"))
-                JOptionPane.showMessageDialog(null, "The friend request now removed.",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "The friend request now removed.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null, "An Error Occurred!",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "An Error Occurred!", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
-            JOptionPane.showMessageDialog(null, "Not connected",
-                    "Profile App", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -235,11 +224,9 @@ public class ProfileClient {
             writer.flush();
             String result = reader.readLine();
             if (result.contains("success"))
-                JOptionPane.showMessageDialog(null, "You two are now not friends.",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You two are now not friends.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null,
-                        "Cannot find profile of this user in your friend list.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cannot find profile of this user in your friend list.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
@@ -259,8 +246,7 @@ public class ProfileClient {
             if (result.contains("success"))
                 JOptionPane.showMessageDialog(null, "Account Deleted", "Profile App", JOptionPane.INFORMATION_MESSAGE);
             else
-                JOptionPane.showMessageDialog(null, "There was an error while deleting your account.",
-                        "Profile App", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "There was an error while deleting your account.", "Profile App", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null, "Not connected", "Profile App", JOptionPane.INFORMATION_MESSAGE);
@@ -270,18 +256,16 @@ public class ProfileClient {
      * Make a String Arraylist of name and username of profiles in Profile Arraylist
      * in order to put them on the list in GUI
      */
-    public static ArrayList<String> getNamesAndUsernames(ArrayList<Profile> profiles) {
+    public static ArrayList<String> getNamesAndUsernames(ArrayList<Profile> profiles, Profile myProfile) {
         ArrayList<String> strings = new ArrayList<String>();
-
         for (Profile p : profiles) {
-            if (p.getSentFriendRequest().equals(true) || p.getReceivedFriendRequest().equals(true)) {
+            if (p.getSentFriendRequest().contains(myProfile)) {
                 String s = p.getName() + " <" + p.getUsername() + ">      [Pending Friend Request]";
                 strings.add(s);
             } else {
                 String s = p.getName() + " <" + p.getUsername() + ">";
                 strings.add(s);
             }
-
         }
         return strings;
     }
