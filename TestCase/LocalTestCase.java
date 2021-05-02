@@ -159,6 +159,7 @@ public class RunLocalTestTwo {
         }
         
         
+
         @Test(timeout = 1000)
         public void profileGetUsernameMethodTest() {
             Class<?> clazz;
@@ -209,8 +210,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getUsername";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getUsername().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -268,8 +270,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getPassword";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getPassword().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -326,8 +329,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getPhone";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getPhone().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -384,8 +388,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getPassword";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getEmail().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -440,8 +445,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getName";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getName().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -498,8 +504,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getAge";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getAge().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -556,7 +563,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getAboutMe";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getAboutMe().getClass();
 
             clazz = Profile.class;
 
@@ -614,7 +623,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getLikes";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getLikes().getClass();
 
             clazz = Profile.class;
 
@@ -672,7 +683,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getDislikes";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getDislikes().getClass();
 
             clazz = Profile.class;
 
@@ -729,7 +742,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setUsername";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -792,7 +805,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setPassword";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -855,7 +868,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setPhone";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -918,7 +931,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setEmail";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -981,7 +994,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setName";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -1044,7 +1057,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setAge";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -1107,7 +1120,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setAboutMe";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -1170,7 +1183,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setLikes";
-            Class<?> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
             Class<?> expectedReturnType = int.class;
             clazz = Profile.class;
             
@@ -1297,7 +1310,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getFriends";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getFriends().getClass();
 
             clazz = Profile.class;
 
@@ -1354,8 +1369,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getReceivedFriendRequest";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getReceivedFriendRequest().getClass();
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
@@ -1412,7 +1428,9 @@ public class RunLocalTestTwo {
 
             String methodName = "getSentFriendRequest";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            String s = "";
+            Profile obj = new Profile(s, s);
+            Class<?> actualReturnType = obj.getSentFriendRequest().getClass();
 
             clazz = Profile.class;
 
@@ -1471,7 +1489,7 @@ public class RunLocalTestTwo {
 
             String methodName = "getPhone";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = String.class;
 
             clazz = Profile.class;
 
@@ -1526,9 +1544,9 @@ public class RunLocalTestTwo {
             int expectedLength = 0;
             Class<?>[] exceptions;
 
-            String methodName = "getPhone";
+            String methodName = "sendFriendRequest";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
 
             clazz = Profile.class;
 
@@ -1594,7 +1612,7 @@ public class RunLocalTestTwo {
 
             String methodName = "getPhone";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            Class<?>actualReturnType = void.class;
 
             clazz = Profile.class;
 
@@ -1658,7 +1676,7 @@ public class RunLocalTestTwo {
 
             String methodName = "getPhone";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
+            Class<?> actualReturnType = void.class;
 
             clazz = Profile.class;
 
@@ -1721,10 +1739,9 @@ public class RunLocalTestTwo {
             int expectedLength = 0;
             Class<?>[] exceptions;
 
-            String methodName = "getPhone";
+            String methodName = "unFriend";
             Class<?> expectedReturnType = int.class;
-            Class<? extends String> actualReturnType = methodName.getClass();
-
+            Class<?> actualReturnType = void.class;
             clazz = Profile.class;
 
             Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
