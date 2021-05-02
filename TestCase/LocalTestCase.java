@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
@@ -71,28 +72,25 @@ public class RunLocalTestTwo {
             Class<?> clazz = Profile.class;
             Constructor<?> constructor;
             String className = "Profile";
-                
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
             int modifiers;
-            Class<?> superclass;
-            Class<?>[] superinterfaces;
-
-            modifiers = clazz.getModifiers();
-
-            superclass = clazz.getSuperclass();
-
-            superinterfaces = clazz.getInterfaces();
             
             try {
-                constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class);
+                constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class);
             } catch (NoSuchMethodException e) {
-                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has three parameters with types String, String, String, String, String, and String!");
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 9 parameters with type String!");
 
                 return;
             }
 
-            Assert.assertTrue("Ensure that `"+ className +"` is `public`!", Modifier.isPublic(modifiers));
+            modifiers = constructor.getModifiers();
 
-            Assert.assertEquals("Ensure that `"+ className +"` implements 0 interface!", 0, superinterfaces.length);
+            exceptions = constructor.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s parameterized constructor is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has no throws clauses!", expectedLength, exceptions.length);
         }
         
         @Test(timeout = 1_000)
@@ -100,16 +98,9 @@ public class RunLocalTestTwo {
             Class<?> clazz = Profile.class;
             Constructor<?> constructor;
             String className = "Profile";
-                
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
             int modifiers;
-            Class<?> superclass;
-            Class<?>[] superinterfaces;
-
-            modifiers = clazz.getModifiers();
-
-            superclass = clazz.getSuperclass();
-
-            superinterfaces = clazz.getInterfaces();
             
             try {
                 constructor = clazz.getDeclaredConstructor(String.class, String.class);
@@ -119,9 +110,13 @@ public class RunLocalTestTwo {
                 return;
             }
 
-            Assert.assertTrue("Ensure that `"+ className +"` is `public`!", Modifier.isPublic(modifiers));
+            modifiers = constructor.getModifiers();
 
-            Assert.assertEquals("Ensure that `"+ className +"` implements 0 interface!", 0, superinterfaces.length);
+            exceptions = constructor.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s parameterized constructor is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has an no throws clauses!", expectedLength, exceptions.length);
         }
         
         @Test(timeout = 1000)
@@ -202,5 +197,939 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
         }
+        
+        @Test(timeout = 1000)
+        public void profileGetPhoneMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetEmailMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getEmail";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetNameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getName";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetAgeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getAge";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetAboutMeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getAboutMe";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetLikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getLikes";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetDislikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getDislikes";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetUsernameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0; //throws clause
+            Class<?>[] exceptions;
+
+            String methodName = "setUsername";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetPasswordMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setPassword";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetPhoneMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setPhone";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetEmailMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setEmail";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetNameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setName";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetAgeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setAge";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetAboutMeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setAboutMe";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetLikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setLikes";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSetDislikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setDislikes";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetFriendsMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getFriends";
+            Class<?> expectedReturnType = ArrayList.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetReceivedFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getReceivedFriendRequest";
+            Class<?> expectedReturnType = ArrayList.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void profileGetSentFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getSentFriendRequest";
+            Class<?> expectedReturnType = ArrayList.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        
+        @Test(timeout = 1000)
+        public void profileToStringMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+
+            String methodName = "toString";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void profileSendFriendRequestTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "sendFriendRequest";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Profile.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void profileAcceptFriendRequestTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "acceptFriendRequest";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Profile.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void profileRemoveFriendRequestTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "removeFriendRequest";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Profile.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void profileUnFriendTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "unFriend";
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Profile.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
+        }
+        
 	}
 }
