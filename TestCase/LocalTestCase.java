@@ -1,10 +1,19 @@
 import org.junit.After;
-import org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
 
@@ -26,210 +35,172 @@ public class RunLocalTestTwo {
     }
 	
     public static class TestCase {
-	@Test
-    public void profileClassDeclarationTest() {
-        Class<?> clazz;
-        String className;
-        //int modifiers;
-        Field testField;
-        
-        clazz = Profile.class;
-        className = "Profile";
-        
-        String username = "username";
-        String password = "password";
-        String name = "name";
-        String age = "age";
-        String email = "email";
-        String phone = "phone";
-        String aboutMe = "aboutMe";
-        String likes = "likes";
-        String dislikes = "dislikes";
-        
-        
-        try {
-            testField = clazz.getDeclaredField(username);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + username + "`!");
+    	private final PrintStream originalOutput = System.out;
+        private final InputStream originalSysin = System.in;
 
-            return;
-        }
-        
-        
-        try {
-            testField = clazz.getDeclaredField(password);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + password + "`!");
+        @SuppressWarnings("FieldCanBeLocal")
+        private ByteArrayInputStream testIn;
 
-            return;
-        }
-        
-        
-        try {
-            testField = clazz.getDeclaredField(name);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + name + "`!");
+        @SuppressWarnings("FieldCanBeLocal")
+        private ByteArrayOutputStream testOut;
 
-            return;
+        @Before
+        public void outputStart() {
+            testOut = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(testOut));
         }
-        
-        try {
-            testField = clazz.getDeclaredField(age);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + age + "`!");
 
-            return;
+        @After
+        public void restoreInputAndOutput() {
+            System.setIn(originalSysin);
+            System.setOut(originalOutput);
         }
-        
-        try {
-            testField = clazz.getDeclaredField(email);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + email + "`!");
 
-            return;
+        private String getOutput() {
+            return testOut.toString();
         }
-        
-        try {
-            testField = clazz.getDeclaredField(phone);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + phone + "`!");
 
-            return;
+        @SuppressWarnings("SameParameterValue")
+        private void receiveInput(String str) {
+            testIn = new ByteArrayInputStream(str.getBytes());
+            System.setIn(testIn);
         }
-        
-        try {
-            testField = clazz.getDeclaredField(aboutMe);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + aboutMe + "`!");
 
-            return;
-        }
-        
-        try {
-            testField = clazz.getDeclaredField(likes);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + likes + "`!");
+        @Test(timeout = 1_000)
+        public void ProfileClassDeclarationTest() {
+            Class<?> clazz = Profile.class;
+            Constructor<?> constructor;
+            String className = "Profile";
+                
+            int modifiers;
+            Class<?> superclass;
+            Class<?>[] superinterfaces;
 
-            return;
-        }
-        
-        try {
-            testField = clazz.getDeclaredField(dislikes);
-        } catch (NoSuchFieldException e) {
-            Assert.fail("Ensure that `" + className + "` declares a field named `" + dislikes + "`!");
+            modifiers = clazz.getModifiers();
 
-            return;
+            superclass = clazz.getSuperclass();
+
+            superinterfaces = clazz.getInterfaces();
+            
+            try {
+                constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has three parameters with types String, String, String, String, String, and String!");
+
+                return;
+            }
+
+            Assert.assertTrue("Ensure that `"+ className +"` is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `"+ className +"` implements 0 interface!", 0, superinterfaces.length);
         }
         
+        @Test(timeout = 1_000)
+        public void ProfileClassDeclarationTestTwo() {
+            Class<?> clazz = Profile.class;
+            Constructor<?> constructor;
+            String className = "Profile";
+                
+            int modifiers;
+            Class<?> superclass;
+            Class<?>[] superinterfaces;
+
+            modifiers = clazz.getModifiers();
+
+            superclass = clazz.getSuperclass();
+
+            superinterfaces = clazz.getInterfaces();
+            
+            try {
+                constructor = clazz.getDeclaredConstructor(String.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has three parameters with types String and String!");
+
+                return;
+            }
+
+            Assert.assertTrue("Ensure that `"+ className +"` is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `"+ className +"` implements 0 interface!", 0, superinterfaces.length);
         }
-	
-	public void profileConstructorTest() {
-        String className = "Profile";
         
-        className = "Profile";
-		try {
-        Profile obj = new Profile("username", "password", "name", "age",
-        		"phone", "email", "likes", "dislikes", "aboutMe");
-        assertEquals("username", obj.getUsername());
-        assertEquals("password", obj.getPassword());
-        assertEquals("age", obj.getAge());
-        assertEquals("phone", obj.getPhone());
-        assertEquals("email", obj.getEmail());
-        assertEquals("likes", obj.getLikes());
-        assertEquals("dislikes", obj.getDislikes());
-        assertEquals("aboutMe", obj.getAboutMe());
-		} catch (Exception e) {
-			Assert.fail(className + "'s big constructor doesn't work!");
-		}
+        @Test(timeout = 1000)
+        public void profileGetUsernameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getUsername";
+            Class<?> expectedReturnType = String.class;
+
+            clazz = Profile.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
         
-		try {
-        Profile obj2 = new Profile("usernameOne", "passwordOne");
-        assertEquals("usernameOne", obj2.getUsername());
-        assertEquals("passwordOne", obj2.getPassword());
-		} catch (Exception e) {
-			Assert.fail(className + "'s small constructor doesn't work!");
-		}
-	}
-	
-	public void profileSetterTestCorrect() {
-		try {
-		Profile obj = new Profile(0, 0, 0, 0, 0, 0 ,0, 0, 0);
-		
-		obj.setUsername(0);
-        assertEquals(0, obj.getUsername());
-        
-		obj.setPassword(0);
-        assertEquals("one", obj.getPassword());
-        
-		obj.setName(0);
-        assertEquals(0, obj.getName());
-        
-		obj.setAge(0);
-        assertEquals(0, obj.getAge());
-        
-		obj.setPhone(0);
-        assertEquals("one", obj.getPhone());
-        
-		obj.setEmail("one");
-        assertEquals("one", obj.getEmail());
-        
-		obj.setLikes("one");
-        assertEquals("one", obj.getLikes());
-        
-		obj.setDislikes("one");
-        assertEquals("one", obj.getDislikes());
-        
-		obj.setAboutMe("one");
-        assertEquals("one", obj.getAboutMe());
-		} catch (Exception e) {
-			Assert.fail("Profile's getter methods or contructor declaration doesn't work!");
-		}
-	}
-	
-	public void profileSetterTestIncorrect() {
-		try {
-		Profile obj = new Profile("phone", "email", "likes", "dislikes", "aboutMe");
-		
-		obj.setUsername("one");
-        assertEquals("one", obj.getUsername());
-        
-		obj.setPassword("one");
-        assertEquals("one", obj.getPassword());
-        
-		obj.setName("one");
-        assertEquals("one", obj.getName());
-        
-		obj.setAge("one");
-        assertEquals("one", obj.getAge());
-        
-		obj.setPhone("one");
-        assertEquals("one", obj.getPhone());
-        
-		obj.setEmail("one");
-        assertEquals("one", obj.getEmail());
-        
-		obj.setLikes("one");
-        assertEquals("one", obj.getLikes());
-        
-		obj.setDislikes("one");
-        assertEquals("one", obj.getDislikes());
-        
-		obj.setAboutMe("one");
-        assertEquals("one", obj.getAboutMe());
-		} catch (Exception e) {
-			return;
-		}
-	}
-	
-	
-	public void testToString() {
-		try {
-		 Profile obj = new Profile("username", "password", "name", "age",
-	        		"phone", "email", "likes", "dislikes", "aboutMe");
-		 assertEquals("username name email phone", obj.toString());
-		} catch (Exception e) {
-			Assert.fail("Profile's toString method or contructor declaration doesn't work!");
-		}
-	}
+        @Test(timeout = 1000)
+        public void profileGetPasswordMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPassword";
+            Class<?> expectedReturnType = String.class;
+            clazz = Profile.class;
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            }
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
 	}
 }
