@@ -70,13 +70,13 @@ public class RunLocalTestTwo {
         @Test(timeout = 1_000)
         public void ProfileClassDeclarationTest() {
             Class<?> clazz = Profile.class;
-            Constructor<?> constructor;
+            Constructor<?> constructor; //used to test constructors
             String className = "Profile";
-            Class<?>[] exceptions;   
-            int expectedLength = 0;
+            Class<?>[] exceptions; 
+            int expectedLength = 0; //Number of throws
             int modifiers;
             
-            try {
+            try { //Constructor has nine parameters so nine parameters with their type is listed
                 constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 9 parameters with type String!");
@@ -99,10 +99,10 @@ public class RunLocalTestTwo {
             Constructor<?> constructor;
             String className = "Profile";
             Class<?>[] exceptions;   
-            int expectedLength = 0;
+            int expectedLength = 0; //num of throws
             int modifiers;
             
-            try {
+            try { //Constructor has 2 parameters so 2 parameters with their type is listed
                 constructor = clazz.getDeclaredConstructor(String.class, String.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has three parameters with types String and String!");
@@ -126,19 +126,19 @@ public class RunLocalTestTwo {
             Method method;
             int modifiers;
             Class<?> actualReturnType;
-            int expectedLength = 0;
+            int expectedLength = 0; //num of throws
             Class<?>[] exceptions;
 
-            String methodName = "getUsername";
-            Class<?> expectedReturnType = String.class;
+            String methodName = "getUsername"; //name of method
+            Class<?> expectedReturnType = String.class; //return type of method, return type is string
 
-            clazz = Profile.class;
+            clazz = Profile.class; //the class this method is from
 
             try {
-                method = clazz.getDeclaredMethod(methodName);
+                method = clazz.getDeclaredMethod(methodName); //there is not parameter so just put method name
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
-                        " has no parameters!");
+                        " has no parameters!"); //this is what prints if somehting goes wrong
 
                 return;
             } 
@@ -521,11 +521,11 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setPassword";
-            Class<?> expectedReturnType = void.class;
-            clazz = Profile.class;
+            Class<?> expectedReturnType = void.class; //return type is void
+            clazz = Profile.class; //class is Profile
             
             try {
-                method = clazz.getDeclaredMethod(methodName, String.class);
+                method = clazz.getDeclaredMethod(methodName, String.class); //if the method has a parameter put each parameter type next to method name separated by commas like so
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
                         " has 1 parameter!");
@@ -940,7 +940,7 @@ public class RunLocalTestTwo {
         
         
         @Test(timeout = 1000)
-        public void profileToStringMethodTest() {
+        public void profileToStringMethodTest() { //for a toString method it follows the same format as the getters
             Class<?> clazz;
             String className = "Profile";
             Method method;
@@ -986,15 +986,15 @@ public class RunLocalTestTwo {
             Method method;
             int modifiers;
             Class<?> actualReturnType;
-            int expectedLength = 1;
+            int expectedLength = 1; //there is a throws in this method so it is now 1
             Class<?>[] exceptions;
 
             String methodName = "sendFriendRequest";
-            Class<?> expectedReturnType = void.class;
+            Class<?> expectedReturnType = void.class; //return type is void
             clazz = Profile.class;
             
             try {
-                method = clazz.getDeclaredMethod(methodName, Profile.class);
+                method = clazz.getDeclaredMethod(methodName, Profile.class); //parameter is type Profile
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
                         " has 1 parameter!");
