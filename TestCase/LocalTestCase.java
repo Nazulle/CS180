@@ -937,8 +937,7 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
         }
-        
-        
+           
         @Test(timeout = 1000)
         public void profileToStringMethodTest() { //for a toString method it follows the same format as the getters
             Class<?> clazz;
@@ -948,7 +947,6 @@ public class RunLocalTestTwo {
             Class<?> actualReturnType;
             int expectedLength = 0;
             Class<?>[] exceptions;
-
 
             String methodName = "toString";
             Class<?> expectedReturnType = String.class;
@@ -962,7 +960,6 @@ public class RunLocalTestTwo {
 
                 return;
             }
-
 
             modifiers = method.getModifiers();
 
@@ -1354,7 +1351,6 @@ public class RunLocalTestTwo {
             Class<?> actualReturnType;
             int expectedLength = 0;
             Class<?>[] exceptions;
-
 
             String methodName = "toString";
             Class<?> expectedReturnType = String.class;
