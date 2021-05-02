@@ -268,7 +268,8 @@ public class MergedGUI extends JComponent implements Runnable {
             if (e.getSource() == openButton) {
                 String selectedItem = (String) comboBox.getSelectedItem();
                 String[] s = selectedItem.split("<");
-                String username = s[1].substring(0,s[1].length() - 1);
+                String[] u = s[1].split(">");
+                String username = u[0];
                 update();
                 setCurrentProfile(ProfileClient.getProfileFromList(allUsers, username));
                 openProfile(currentProfile);
@@ -647,10 +648,11 @@ public class MergedGUI extends JComponent implements Runnable {
             if (comboBox.getSelectedItem() != null) {
                 String selectedItem = (String) comboBox.getSelectedItem();
                 String[] s = selectedItem.split("<");
-                username = s[1].substring(0,s[1].length() - 1);
+                String[] u = s[1].split(">");
+                username = u[0];
             }
             comboBox.removeAllItems();
-            testArray = ProfileClient.getNamesAndUsernames(allUsers);
+            testArray = ProfileClient.getNamesAndUsernames(allUsers, myProfile);
             for (int i = 0; i < testArray.size(); i++) {
                 comboBox.addItem(testArray.get(i));
                 if (testArray.get(i).contains(username)) {
