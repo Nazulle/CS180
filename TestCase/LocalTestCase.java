@@ -1132,4 +1132,32 @@ public class RunLocalTestTwo {
         }
         
 	}
+	 @Test(timeout = 1_000)
+        public void authenticationClassDeclarationTest() {
+            Class<?> clazz = Authentication.class;
+            Constructor<?> constructor; //used to test constructors
+            String className = "Authentication";
+            Class<?>[] exceptions; 
+            int expectedLength = 0; //Number of throws
+            int modifiers;
+            
+            try { //Constructor has parameter of arraylist 
+                constructor = clazz.getDeclaredConstructor(ArrayList.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 1 parameter with type Arraylist<Profile>!");
+
+                return;
+            }
+
+            modifiers = constructor.getModifiers();
+
+            exceptions = constructor.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s parameterized constructor is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has no throws clauses!", expectedLength, exceptions.length);
+        }
+        
+	}
+}
 }
