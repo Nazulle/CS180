@@ -67,16 +67,17 @@ public class RunLocalTestTwo {
             System.setIn(testIn);
         }
 
+
         @Test(timeout = 1_000)
         public void ProfileClassDeclarationTest() {
             Class<?> clazz = Profile.class;
-            Constructor<?> constructor; //used to test constructors
+            Constructor<?> constructor;
             String className = "Profile";
-            Class<?>[] exceptions; 
-            int expectedLength = 0; //Number of throws
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
             int modifiers;
             
-            try { //Constructor has nine parameters so nine parameters with their type is listed
+            try {
                 constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 9 parameters with type String!");
@@ -94,15 +95,53 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1_000)
+        public void IncorrectProfileClassDeclarationTest() {
+            Class<?> clazz = Profile.class;
+            Constructor<?> constructor;
+            String className = "Profile";
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
+            int numParameters = 9;
+            int modifiers;
+            
+            try {//Incorrect: declared 8 parameters instead of 9
+                constructor = clazz.getDeclaredConstructor(String.class, String.class, String.class, String.class, String.class, String.class, String.class, String.class);
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 9 parameters with type String!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+
+        }
+        
+        @Test(timeout = 1_000)
+        public void IncorrectProfileClassDeclarationTestTwo() {
+            Class<?> clazz = Profile.class;
+            Constructor<?> constructor;
+            String className = "Profile";
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
+            int modifiers;
+
+            try {
+                constructor = clazz.getDeclaredConstructor(String.class);
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 2 parameters with type String!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+            
+        }
+        
+        @Test(timeout = 1_000)
         public void ProfileClassDeclarationTestTwo() {
             Class<?> clazz = Profile.class;
             Constructor<?> constructor;
             String className = "Profile";
             Class<?>[] exceptions;   
-            int expectedLength = 0; //num of throws
+            int expectedLength = 0;
             int modifiers;
             
-            try { //Constructor has 2 parameters so 2 parameters with their type is listed
+            try {//Incorrect: declared 1 parameters instead of 2
                 constructor = clazz.getDeclaredConstructor(String.class, String.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has three parameters with types String and String!");
@@ -119,6 +158,7 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has an no throws clauses!", expectedLength, exceptions.length);
         }
         
+        
         @Test(timeout = 1000)
         public void profileGetUsernameMethodTest() {
             Class<?> clazz;
@@ -126,19 +166,19 @@ public class RunLocalTestTwo {
             Method method;
             int modifiers;
             Class<?> actualReturnType;
-            int expectedLength = 0; //num of throws
+            int expectedLength = 0;
             Class<?>[] exceptions;
 
-            String methodName = "getUsername"; //name of method
-            Class<?> expectedReturnType = String.class; //return type of method, return type is string
+            String methodName = "getUsername";
+            Class<?> expectedReturnType = String.class;
 
-            clazz = Profile.class; //the class this method is from
+            clazz = Profile.class;
 
             try {
-                method = clazz.getDeclaredMethod(methodName); //there is not parameter so just put method name
+                method = clazz.getDeclaredMethod(methodName);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
-                        " has no parameters!"); //this is what prints if somehting goes wrong
+                        " has no parameters!");
 
                 return;
             } 
@@ -156,6 +196,25 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetUsernameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getUsername";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -195,6 +254,26 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetPasswordMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPassword";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -238,6 +317,25 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileGetPhoneMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetEmailMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -277,6 +375,23 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileGetEmailMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPassword";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetNameMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -312,6 +427,25 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetNameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getName";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -355,6 +489,25 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileGetAgeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getAge";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetAboutMeMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -390,6 +543,25 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetAboutMeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getAboutMe";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -433,6 +605,25 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileGetLikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getLikes";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetDislikesMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -468,6 +659,25 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetDislikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getDislikes";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -511,6 +721,30 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileSetUsernameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setUsername";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+        }
+        
+        @Test(timeout = 1000)
         public void profileSetPasswordMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -521,11 +755,11 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "setPassword";
-            Class<?> expectedReturnType = void.class; //return type is void
-            clazz = Profile.class; //class is Profile
+            Class<?> expectedReturnType = void.class;
+            clazz = Profile.class;
             
             try {
-                method = clazz.getDeclaredMethod(methodName, String.class); //if the method has a parameter put each parameter type next to method name separated by commas like so
+                method = clazz.getDeclaredMethod(methodName, String.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
                         " has 1 parameter!");
@@ -547,6 +781,30 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileSetPasswordMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setPassword";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
         }
         
         @Test(timeout = 1000)
@@ -589,6 +847,30 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileSetPhoneMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setPhone";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+        }
+        
+        @Test(timeout = 1000)
         public void profileSetEmailMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -625,6 +907,30 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileSetEmailMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setEmail";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
         }
         
         @Test(timeout = 1000)
@@ -667,6 +973,30 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileSetNameMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setName";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+        }
+        
+        @Test(timeout = 1000)
         public void profileSetAgeMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -703,6 +1033,30 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileSetAgeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setAge";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
         }
         
         @Test(timeout = 1000)
@@ -745,6 +1099,30 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileSetAboutMeMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setAboutMe";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+        }
+        
+        @Test(timeout = 1000)
         public void profileSetLikesMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -781,6 +1159,30 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileSetLikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setLikes";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
         }
         
         @Test(timeout = 1000)
@@ -823,6 +1225,30 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileSetDislikesMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setDislikes";
+            Class<?> actualReturnType = methodName.getClass();
+            Class<?> expectedReturnType = int.class;
+            clazz = Profile.class;
+            
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetFriendsMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -858,6 +1284,25 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileGetFriendsMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getFriends";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
 
         }
         
@@ -900,6 +1345,25 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileGetReceivedFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getReceivedFriendRequest";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileGetSentFriendRequestMethodTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -937,9 +1401,28 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
 
         }
-           
+        
         @Test(timeout = 1000)
-        public void profileToStringMethodTest() { //for a toString method it follows the same format as the getters
+        public void IncorrectProfileGetSentFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getSentFriendRequest";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
+        public void profileToStringMethodTest() {
             Class<?> clazz;
             String className = "Profile";
             Method method;
@@ -947,6 +1430,7 @@ public class RunLocalTestTwo {
             Class<?> actualReturnType;
             int expectedLength = 0;
             Class<?>[] exceptions;
+
 
             String methodName = "toString";
             Class<?> expectedReturnType = String.class;
@@ -960,6 +1444,7 @@ public class RunLocalTestTwo {
 
                 return;
             }
+
 
             modifiers = method.getModifiers();
 
@@ -977,21 +1462,40 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileToStringMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileSendFriendRequestTest() {
             Class<?> clazz;
             String className = "Profile";
             Method method;
             int modifiers;
             Class<?> actualReturnType;
-            int expectedLength = 1; //there is a throws in this method so it is now 1
+            int expectedLength = 1;
             Class<?>[] exceptions;
 
             String methodName = "sendFriendRequest";
-            Class<?> expectedReturnType = void.class; //return type is void
+            Class<?> expectedReturnType = void.class;
             clazz = Profile.class;
             
             try {
-                method = clazz.getDeclaredMethod(methodName, Profile.class); //parameter is type Profile
+                method = clazz.getDeclaredMethod(methodName, Profile.class);
             } catch (NoSuchMethodException e) {
                 Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
                         " has 1 parameter!");
@@ -1012,6 +1516,33 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileSendFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+
+                return;
+            }
+
         }
         
         @Test(timeout = 1000)
@@ -1052,6 +1583,33 @@ public class RunLocalTestTwo {
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
         }
         
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileAcceptFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+
+                return;
+            }
+
+        }
         @Test(timeout = 1000)
         public void profileRemoveFriendRequestTest() {
             Class<?> clazz;
@@ -1091,6 +1649,33 @@ public class RunLocalTestTwo {
         }
         
         @Test(timeout = 1000)
+        public void IncorrectProfileRemoveFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
         public void profileUnFriendTest() {
             Class<?> clazz;
             String className = "Profile";
@@ -1127,6 +1712,34 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has a `throws` clause!", expectedLength, exceptions.length);
         }
+        
+        @Test(timeout = 1000)
+        public void IncorrectProfileUnFriendMethodTest() {
+            Class<?> clazz;
+            String className = "Profile";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getPhone";
+            Class<?> expectedReturnType = int.class;
+            Class<? extends String> actualReturnType = methodName.getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+            } catch (NoSuchMethodException e) {
+
+                return;
+            }
+
+        }
+	    
         @Test(timeout = 1_000)
         public void authenticationClassDeclarationTest() {
             Class<?> clazz = Authentication.class;
