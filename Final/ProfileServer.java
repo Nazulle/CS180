@@ -150,8 +150,11 @@ public class ProfileServer implements Runnable {
                     }
                     //delete account form the profiles list
                     if (function.equals("removeProfile")) {
-                        profilesList.removeProfile(username);
-                        writer.println("success");
+                        boolean result = profilesList.removeProfile(username);
+                        if (result)
+                            writer.println("success");
+                        else
+                            writer.println("failed");
                         writer.flush();
                     }
 
