@@ -2620,5 +2620,588 @@ public class RunLocalTestTwo {
             } //end try catch
         }
 	    
+	            @Test(timeout = 1000)
+        public void GetNamesAndUsernamesMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getNamesAndUsernames";
+            Class<?> expectedReturnType = ArrayList.class;
+
+            clazz = ProfileClient.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, ArrayList.class, Profile.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+   
+        @Test(timeout = 1000)
+        public void IncorrectGetNamesAndUsernamesMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "getNamesAndUsernames";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = ArrayList.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void getProfileFromListMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfileFromList";
+            Class<?> expectedReturnType = Profile.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, ArrayList.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+   
+        @Test(timeout = 1000)
+        public void IncorrectGetProfileFromListMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfileFromList";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = Profile.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void sendLoginInfoMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "sendLoginInfo";
+            Class<?> expectedReturnType = boolean.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectSendLoginInfoMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "sendLoginInfo";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = boolean.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void createAccountMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "createAccount";
+            Class<?> expectedReturnType = boolean.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectCreateAccountMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "createAccount";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = boolean.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        
+        @Test(timeout = 1000)
+        public void setProfileTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "setProfile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class, String.class, String.class, String.class, String.class, String.class,
+                        String.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has multiple parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectSetProfileMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "setProfile";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = void.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void getProfileListTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfileList";
+            Class<?> expectedReturnType = ArrayList.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectGetProfileListMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfileList";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = ArrayList.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void sendFriendRequestTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "sendFriendRequest";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has multiple parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectSendFriendRequestMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "sendFriendRequest";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = void.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        
+        @Test(timeout = 1000)
+        public void beFriendTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "beFriend";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class, String.class, boolean.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has multiple parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectBeFriendMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "beFriend";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = void.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void unFriendMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "unFriend";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class, String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectUnFriendMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "beFriend";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = void.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void removeProfileMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "removeProfile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = ProfileClient.class;
+
+            
+            try {
+                method = clazz.getDeclaredMethod(methodName, Socket.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has 1 `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectRemoveProfileMethodTest() {
+            Class<?> clazz;
+            String className = "ProfileClient";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "beFriend";
+            Class<?> expectedReturnType = boolean.class;
+            Class<?> actualReturnType = void.class;
+            clazz = ProfileClient.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+    }
+	    
 	}
 }
