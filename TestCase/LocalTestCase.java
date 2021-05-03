@@ -2009,5 +2009,183 @@ public class RunLocalTestTwo {
 
             Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
         }
+	           @Test(timeout = 1_000)
+        public void IncorrectAuthenticationClassDeclarationTest() {
+            Class<?> clazz = Authentication.class;
+            Constructor<?> constructor;
+            String className = "Authentication";
+            Class<?>[] exceptions;   
+            int expectedLength = 0;
+            int modifiers;
+            
+            try {//Incorrect: no parameters
+                constructor = clazz.getDeclaredConstructor();
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has 1 parameter with type ArrayList!");
+            } catch (NoSuchMethodException e) {
+
+                return;
+            }
+
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationCreateAccountMethodTest() throws OccupiedProfileException {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "createAccount";
+            Class<?> expectedReturnType = int.class;
+            String s = "";
+            ArrayList<Profile> profiles = new ArrayList<Profile>();
+            Authentication obj = new Authentication(profiles);
+            Class<? extends Profile> actualReturnType = obj.createAccount(s, s).getClass();
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationLoginMethodTest() {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "login";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = Profile.class;
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationGetProfileMethodTest() {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = Profile.class;
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationRemoveProfileMethodTest() {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "removeProfile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationGetProfilesMethodTest() {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "getProfiles";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = Profile.class;
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectAuthenticationToStringMethodTest() {
+            Class<?> clazz;
+            String className = "Authentication";
+            Method method;
+            int expectedLength = 1;
+            Class<?>[] exceptions;
+
+            String methodName = "login";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = String.class;
+
+            clazz = Profile.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, int.class, int.class);
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 2 parameters!");
+            } catch (NoSuchMethodException e) {
+                return;
+            }
+
+        }
 	}
 }
