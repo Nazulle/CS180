@@ -22,6 +22,14 @@ import org.junit.runner.JUnitCore;
 import org.junit.*;
 import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * LocalTestCase
+ *
+ * This class consists of running local test cases for all the classes in the Final Folder
+ *	
+ * @author Abby Farrell, (alfarrell@purdue.edu)
+ * @version May 3rd
+ */
 
 public class RunLocalTestTwo {
     public static void main(String[] args) {
