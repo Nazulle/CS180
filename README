@@ -3,7 +3,11 @@ Group 37: Project 5 (Parallel)
 
 How to Compile/Run this Project:
 
-First, you need to compile the ProfileServer class which serves as our server and this will constantly be on. This also launches any stored user data such as account, profile and friends list information.
+First, you need to compile the ProfileServer class which serves as our server and this will constantly be on. 
+This also launches any stored user data such as account, profile and friends list information.
+Then, compile ProfileClient class.
+While compiling these two classes, all other classes will be automatically compiled.
+Finally, run ProfileClient class.
 
 
 Submission Details:
@@ -17,19 +21,37 @@ Student : Submitted Video Presentation
 
 Detailed Descriptions of Each Class:
 
-ProfileServer:
-
-ProfileClient:
+Profile:
+This class is for Profile object. One Profile object have information for one user account. 
+In addition to basic getter & setter and toString & equals methods, we have methods to send, accept, remove friend request and unfriend here. 
+By adding and removing the friend’s profile in sentFriendRequest list (from me to him), receivedFriendRequest list (from him to me) and friend list, we perform those functions. 
+This is the basic unit of our program and methods here will be called inside various codes whenever needed. 
+However, methods that are editing the profile, including setter methods, will only performed within the server class.
 
 Authentication:
+This class contains and constructed by the ArrayList of Profile objects and perform methods to get or edit the lists and Profile objects inside it. 
+There is one Authentication object in the server and functions in the server will call the methods in the Authentication class to perform the functions.
 
-Profile:
+ProfileServer:
+This is a multi-threaded server class for our program. When socket is accepted, new thread starts.
+In the thread, Server reads what strings were passed by the client. 
+The first 3 line is functions, username and password. According to the ‘function’ String, Server performs corresponding functions.
+
+ProfileClient:
+This is a client class which runs the MergedGUI object and contains methods to send the request of functions to the server. 
+In these methods, client send strings to the server to request an action within server. 
+The actions include adding, editing or getting information in the server.
 
 OccupiedProfileException:
+This exception is thrown when username and password is occupied when creating a profile inside the Authentication object.
 
 ProfileNotFoundException:
+This exception is thrown when we cannot find a profile in the Authentication object.
 
 MergedGUI:
+This is final GUI class that all frames are merged. The user is able to perform actions throw this GUI, and corresponding methods of Client class will be called. 
+Especially there is a function to refresh by every 5 seconds by getting users’ list at the server.
+
 
 
 Descriptions of Testing Done:
