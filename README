@@ -3,6 +3,8 @@ Group 37: Project 5 (Parallel)
 
 How to Compile/Run this Project:
 
+For all files, only use the Final folder and the Test Case folders. All other folders were older version of our code and may not represent the true functionality.
+
 First, you need to compile the ProfileServer class which serves as our server and this will constantly be on. 
 This also launches any stored user data such as account, profile and friends list information.
 Then, compile ProfileClient class.
