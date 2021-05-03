@@ -2523,6 +2523,102 @@ public class RunLocalTestTwo {
 
         }
 	    
+	        @Test(timeout = 1_000)
+        public void OccupiedProfiletExceptionParameterizedConstructorDeclarationTest() {
+            
+            Class<?> clazz = OccupiedProfileException.class;
+            String className = "OccupiedProfileException";
+            
+            Constructor<?> constructor;
+            int modifiers;
+            Class<?>[] exceptions;
+            int expectedLength = 0;
+
+            try {
+                constructor = clazz.getDeclaredConstructor(String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has one parameters of type String!");
+
+                return;
+            } //end try catch
+
+            modifiers = constructor.getModifiers();
+
+            exceptions = constructor.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s parameterized constructor is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has an empty`throws` clauses!", expectedLength, exceptions.length);
+        }
+        
+        @Test(timeout = 1_000)
+        public void IncorrectOccupiedProfiletExceptionParameterizedConstructorDeclarationTest() {
+            
+            Class<?> clazz = OccupiedProfileException.class;
+            String className = "OccupiedProfileException";
+            
+            Constructor<?> constructor;
+            int modifiers;
+            Class<?>[] exceptions;
+            int expectedLength = 0;
+
+            try {
+                constructor = clazz.getDeclaredConstructor(int.class);
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has one parameters of type String!");
+
+            } catch (NoSuchMethodException e) {
+                return;
+            } //end try catch
+        }
+        
+        @Test(timeout = 1_000)
+        public void ProfileNotFoundExceptionParameterizedConstructorDeclarationTest() {
+            
+            Class<?> clazz = ProfileNotFoundException.class;
+            String className = "ProfileNotFoundException";
+            
+            Constructor<?> constructor;
+            int modifiers;
+            Class<?>[] exceptions;
+            int expectedLength = 0;
+
+            try {
+                constructor = clazz.getDeclaredConstructor(String.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has one parameters of type String!");
+
+                return;
+            } //end try catch
+
+            modifiers = constructor.getModifiers();
+
+            exceptions = constructor.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s parameterized constructor is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s parameterized constructor has an empty`throws` clauses!", expectedLength, exceptions.length);
+        }
+        
+        
+        @Test(timeout = 1_000)
+        public void IncorrectProfileNotFoundExceptionParameterizedConstructorDeclarationTest() {
+            
+            Class<?> clazz = ProfileNotFoundException.class;
+            String className = "ProfileNotFoundException";
+            
+            Constructor<?> constructor;
+            int modifiers;
+            Class<?>[] exceptions;
+            int expectedLength = 0;
+
+            try {
+                constructor = clazz.getDeclaredConstructor(int.class);
+                Assert.fail("Ensure that `" + className + "` declares a constructor that is `public` and has one parameters of type String!");
+
+            } catch (NoSuchMethodException e) {
+                return;
+            } //end try catch
+        }
 	    
 	}
 }
