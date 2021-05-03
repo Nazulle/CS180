@@ -7,7 +7,7 @@ import javax.swing.*;
  * Project 5 Profile Client
  *
  *
- * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu)
+ * @author Saketh Ayyalasomayajula(sayyala@purdue.edu), Minwoo Jung(jung361@purdue.edu), Gabriel Segura(gsegura@purdue.edu)
  * @version May 2nd, 2021
  */
 
