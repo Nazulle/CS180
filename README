@@ -77,7 +77,13 @@ to the homepage where your account is now created!
 
 For the GUI, to test sending a friend request. The user will run the program and login using their username and password. Once they are
 brought to the main menu, the user can click a profile from the drop down menu and click the button on the bottom that states "Select Profile".
-This will then take you to the given users profile. If the profile isn't a friend of the user already then a button labeled
+This will then take you to the given users profile. If the profile isn't a friend of the user already then a button labeled "Send Friend Request"
+will be at the top. Once this is clicked, a confirmation message will be displayed. Once the user of the profile accepts the friend request by
+clicking the "accept" button on your profile, then the program will alert you that you both are now friends.
+
+For the GUI, to test editing/deleting an account. Once the user is logged in, at the main menu, there is a button on the button labeled 
+"Edit Your Profile". Once this is clicked, it will take the user to the Registration form where they can edit any of their information. This is also
+where the user can delete their account by clicking the "Delete!" button on the bottom of the form. This will delete all user information from the app.
 
 
 
