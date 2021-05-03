@@ -1782,7 +1782,7 @@ public class RunLocalTestTwo {
             Method method;
             int modifiers;
             Class<?> actualReturnType;
-            int expectedLength = 0;
+            int expectedLength = 1;
             Class<?>[] exceptions;
 
             String methodName = "createAccount";
@@ -1900,7 +1900,7 @@ public class RunLocalTestTwo {
             Class<?>[] exceptions;
 
             String methodName = "removeProfile";
-            Class<?> expectedReturnType = Profile.class; 
+            Class<?> expectedReturnType = void.class; 
             clazz = Authentication.class; 
             
             try {
