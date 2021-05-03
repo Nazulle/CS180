@@ -62,7 +62,7 @@ public class Authentication {
     /**
      * Remove a profile from the List
      */
-    public void removeProfile(String username) {
+    public boolean removeProfile(String username) {
         for (Profile p : profiles) {
             if (p.getUsername().equals(username)) {
                 for (Profile pf : profiles) {
@@ -71,9 +71,10 @@ public class Authentication {
                     }
                 }
                 profiles.remove(p);
+                return true;
             }
         }
-
+        return false;
     }
 
     public ArrayList<Profile> getProfiles() {
