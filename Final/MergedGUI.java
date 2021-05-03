@@ -490,6 +490,7 @@ public class MergedGUI extends JComponent implements Runnable {
         deleteButton.setLocation(350, 500);
         deleteButton.addActionListener(actionListener);
         c.add(deleteButton);
+        deleteButton.setVisible(false);
 
 
         //Frame of GUIMain
@@ -642,6 +643,7 @@ public class MergedGUI extends JComponent implements Runnable {
         profDislikes.setText(myProfile.getDislikes());
         profAboutMe.setText(myProfile.getAboutMe());
         pfFrame.setVisible(true);
+        deleteButton.setVisible(true);
     }
 
     //setup comboBox when logged in or information changed
