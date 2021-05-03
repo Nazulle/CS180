@@ -70,8 +70,14 @@ so it tests the incorrect return types and parameters then returns true if the m
 If the method does not have the outputs the test class is expecting at any point, a fail message will be printed with a
 description of why the test failed.
 
-For the GUI, to test making an account:
-Step 1: Run the Program
+For the GUI, to test making an account. The user needs to trun the program and after clicking "OK" in the welcome message they
+need to click the button on the bottom that says "Create New Account" and enter your preferred username and password. You then will
+be brought to the Registration Form where you are required to fill out your information. After clicking "Sumbit", you are then brought
+to the homepage where your account is now created!
+
+For the GUI, to test sending a friend request. The user will run the program and login using their username and password. Once they are
+brought to the main menu, the user can click a profile from the drop down menu and click the button on the bottom that states "Select Profile".
+This will then take you to the given users profile. If the profile isn't a friend of the user already then a button labeled
 
 
 
