@@ -58,7 +58,20 @@ Especially there is a function to refresh by every 5 seconds by getting users’
 
 Descriptions of Testing Done:
 
+Descriptions of the testing done on each class. 
+For GUI testing, provide step-by-step guidance on the tests performed. 
 
+Tested modifiers, return types, parameter types, and whether there were any throws
+
+Each method would have a correct and incorrect test. The correct test would test the method with the correct return types, 
+modifiers, parameter types, and whether there were any throws. The incorrect Test would test the main components of the method
+so it tests the incorrect return types and parameters then returns true if the method doesn't have these parameters.
+
+If the method does not have the outputs the test class is expecting at any point, a fail message will be printed with a
+description of why the test failed.
+
+For the GUI, to test making an account:
+Step 1: Run the Program
 
 
 
