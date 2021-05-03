@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
+/**
+ * FileIO
+ *
+ * A class that represents the file input/ouput methods that will be used to store data for the server.
+ *
+ * @author Saketh Ayyalasomayajula - sayyala@purdue.edu, Minwoo Jung - jung361@purdue.edu
+ * @version May 2nd
+ */
 
 public class FileIO {
 
