@@ -353,7 +353,7 @@ public class MergedGUI extends JComponent implements Runnable {
 
         loginFrame.setSize(600, 400);
         loginFrame.setLocationRelativeTo(null);
-        loginFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loginFrame.setVisible(true);
 
         passText = new JTextField(5);
