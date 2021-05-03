@@ -9,7 +9,9 @@ First, you need to compile the ProfileServer class which serves as our server an
 Submission Details:
 
 Student : Submitted Report on Brightspace
+
 Student : Submitted Vocareum Workspace
+
 Student : Submitted Video Presentation
 
 
