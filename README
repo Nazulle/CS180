@@ -9,6 +9,8 @@ Then, compile ProfileClient class.
 While compiling these two classes, all other classes will be automatically compiled.
 Finally, run ProfileClient class.
 
+For simultaneous users, open a new terminal and run ProfileClient again.
+
 
 Submission Details:
 
