@@ -2180,5 +2180,349 @@ public class RunLocalTestTwo {
             }
 
         }
+	    
+	            @Test(timeout = 1000)
+        public void FileIOWriteAccountFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeAccountFile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, ArrayList.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has 1 parameter!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectFileIOWriteAccountFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeAccountFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void FileIOReadAccountFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readAccountFile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectFileIOReadAccountFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readAccountFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void FileIOReadProfileFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readProfileFile";
+            Class<?> expectedReturnType = ArrayList.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectFileIOReadProfileFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readProfileFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = ArrayList.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void FileIOWriteProfileFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeProfileFile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, ArrayList.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectFileIOWriteProfileFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeProfileFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void FileIOWriteFriendListFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeFriendListFile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName, ArrayList.class);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void IncorrectFileIOWriteFriendListFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "writeFriendListFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+        
+        @Test(timeout = 1000)
+        public void FileIOReadFriendListFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int modifiers;
+            Class<?> actualReturnType;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readFriendListFile";
+            Class<?> expectedReturnType = void.class;
+
+            clazz = FileIO.class;
+
+            try {
+                method = clazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                Assert.fail("Ensure that `" + className + "` declares a method named `" + methodName + "` that" +
+                        " has no parameters!");
+
+                return;
+            } 
+
+            modifiers = method.getModifiers();
+
+            actualReturnType = method.getReturnType();
+
+            exceptions = method.getExceptionTypes();
+
+            Assert.assertTrue("Ensure that `" + className + "`'s `" + methodName + "` method is `public`!", Modifier.isPublic(modifiers));
+
+            Assert.assertFalse("Ensure that `" + className + "`'s `" + methodName + "` method is NOT `static`!", Modifier.isStatic(modifiers));
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+            Assert.assertEquals("Ensure that `" + className + "`'s `" + methodName + "` method has an empty `throws` clause!", expectedLength, exceptions.length);
+
+        }
+   
+        @Test(timeout = 1000)
+        public void IncorrectFileIOReadFriendListFileMethodTest() {
+            Class<?> clazz;
+            String className = "FileIO";
+            Method method;
+            int expectedLength = 0;
+            Class<?>[] exceptions;
+
+            String methodName = "readFriendListFile";
+            Class<?> expectedReturnType = int.class;
+            Class<?> actualReturnType = void.class;
+            clazz = FileIO.class;
+
+            Assert.assertNotEquals("Ensure that `" + className + "`'s `" + methodName + "` method has the correct return type!", expectedReturnType, actualReturnType);
+
+        }
+	    
+	    
 	}
 }
